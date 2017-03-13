@@ -1,0 +1,37 @@
+{
+  "name": "certamen",
+  "version": "1.0.0",
+  "description": "See `README.md`",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "gulp",
+    "server": "node serverdev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Michael-N/Certamen.git"
+  },
+  "keywords": [
+    "Certamen",
+    "Latin",
+    "Michael",
+    "Kyle",
+    "Chancellor",
+    "JCL"
+  ],
+  "author": "Michael,Kyle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Michael-N/Certamen/issues"
+  },
+  "homepage": "https://github.com/Michael-N/Certamen#readme",
+  "devDependencies": {
+    "express": "^4.15.2",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
+    "gulp-react": "^3.1.0",
+    "gulp-sass": "^3.1.0",
+    "material-ui": "^0.17.0"
+  }
+}
