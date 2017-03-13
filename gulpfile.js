@@ -28,7 +28,9 @@ const settings = {
       gifsicle: true,
       svgo: true,
       concurrent: 3
-    }
+    },
+    copyInDir:["dev/assets/**/*.*","!dev/assets/**/*.{jpg,png,svg,gif}"],
+    copyOutDir:"./www"
 };
 
 //Convert Sass(.scss) and Minify
@@ -65,6 +67,11 @@ gulp.task("optimizeimages",function(){
         .pipe(gulp.dest(settings.imageOutDir));
 });
 
+//Copy all other non precompiled files...
+gulp.task("copy",function(){
+    gulp.src(settings.copyInDir).pipe(gulp.dest(settings.copyOutDir));
+});
+
 //Watch all the files as the default task
 gulp.task("default",function(){
     //watch sass
@@ -75,8 +82,10 @@ gulp.task("default",function(){
     
     // watch html
     gulp.watch(settings.minhtmlInDir,["minhtml"]);
-    /*
+    
     //watch Images ~~~ may be resource intensive ... 
     gulp.watch(settings.imageInDir,["optimizeimages"]);
-    */
+    
+    //Copy all other assets files over....
+    gulp.watch(settings.copyInDir,["copy"]);
 });

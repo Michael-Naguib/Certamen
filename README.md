@@ -12,7 +12,7 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 
 ## Directory Structure
 * All jsx,scss,png,jpeg,gif,svg files will be made avilable via the followining directories for production names
-1. www/assets        For .png .jpeg .gif .svg and (anything else) -> needs implementation!!!!!
+1. www/assets        For .png .jpeg .gif .svg and (anything else) -> implementation needs testing!!!!!
 2. www/javascript    For .js .min.js
 3. www/stylesheets   For .css .min.css
 4. www/markup        For .html .min.html 
