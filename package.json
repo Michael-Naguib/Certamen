@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "gulp",
-    "server": "node serverdev.js"
+    "server": "node serverdev.js",
+    "setup": "npm install"
   },
   "repository": {
     "type": "git",
