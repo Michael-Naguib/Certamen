@@ -6,6 +6,11 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 * Dependancies (see package.json)
 * Run the command ```npm run setup ``` in terminal to install the dependancies 
 
+## Devlopment tips
+* Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081
+* It Currently does not go to the index.min.html by default so here is the path http://localhost:8081/markup/index.min.html
+* DO NOT FORGET to run ```gulp``` in terminal before you start work on the project... it will update the www which the server hosts!
+
 ## Working with links
 * Relative links will need a lot of work if they are going to work withine wordpress as shortcode... see comments in shortcode.php
 * All Production scripts,assets,etc... will be made avilable via the folder "www"
