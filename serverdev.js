@@ -6,7 +6,7 @@ const express = require("express");
 var app = express();
 
 const settings = {
-    serveDir:"www",
+    serveDir:"/www",
     servePort: process.argv[2] || 8080
 };
 
@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, settings.serveDir)));
 
 // Listen for requests
 var serverdev = app.listen(app.get('port'), function() {
-  var port = server.address().port;
+  var port = serverdev.address().port;
   console.log('[Dev Server] listening on '+ port);
+  console.log("[Dev Server] dont forget to run 'gulp' so the files auto update :)");
 });
