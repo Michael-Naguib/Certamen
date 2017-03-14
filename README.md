@@ -21,7 +21,7 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 2. www/javascript    For .js .min.js
 3. www/stylesheets   For .css .min.css
 4. www/markup        For .html .min.html 
-* The Gulpfile is configured to fit all files from /dev into these categories. Any jsx in /dev/components will be put in /www/javascript
+* The Gulpfile is configured to fit all files from /dev into these categories. 
 * The other files their respective directory according to the guide above
 * Please feel free to improve the gulp configuration :)
 

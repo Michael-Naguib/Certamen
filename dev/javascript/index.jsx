@@ -1,5 +1,7 @@
 //Other Code
 
+//import "leaderboard.min"
+
 class MyPage extends React.Component{
     constructor(props){
         super(props);
