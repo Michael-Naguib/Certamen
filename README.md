@@ -27,3 +27,4 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 
 ## Site Admin Email
 * jcl.chancellors@gmail.com
+* It may take some time to be contacted back
