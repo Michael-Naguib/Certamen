@@ -1,12 +1,21 @@
+"use strict";
 //Requires & Setup
 const gulp = require('gulp');
+const concat = require('gulp-concat');
 const react = require('gulp-react');
 const sass = require('gulp-sass');
 const htmlmin = require("gulp-htmlmin");
 const rename = require("gulp-rename");
 const jsmin = require("gulp-jsmin");
 const image = require("gulp-image");
+const jade = require("gulp-jade");
+/*
+design goals
 
+        jade main html
+        compile and minify and concat js
+        compile and concat 
+*/
 
 //Settings and Configuration
 const settings = {

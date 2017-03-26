@@ -31,12 +31,15 @@
     "express": "^4.15.2",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
+    "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-image": "^2.7.5",
+    "gulp-jade": "^1.1.0",
     "gulp-jsmin": "^0.1.5",
     "gulp-react": "^3.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
     "material-ui": "^0.17.0"
   }
 }

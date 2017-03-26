@@ -8,9 +8,7 @@ class MyPage extends React.Component{
         this.greetUser = this.greetUser.bind(this);
     }
     render(){
-        return(<div><h1>Hello World, {this.props.name}</h1>
-            <p>The Site is undergoing Maintinence please check back later!</p>
-            </div>);
+        return(<h1>The Site is undergoing Maintinence Please check back later :), {this.props.name}</h1>);
     };
 }
 
