@@ -5,9 +5,12 @@
 class MyPage extends React.Component{
     constructor(props){
         super(props);
+        this.greetUser = this.greetUser.bind(this);
     }
     render(){
-        return(<h1>Hello World, {this.props.name}</h1>);
+        return(<div><h1>Hello World, {this.props.name}</h1>
+            <p>The Site is undergoing Maintinence please check back later!</p>
+            </div>);
     };
 }
 
