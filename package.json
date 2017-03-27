@@ -30,6 +30,7 @@
   "devDependencies": {
     "express": "^4.15.2",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^3.0.0",
@@ -40,6 +41,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
-    "material-ui": "^0.17.0"
+    "material-ui": "^0.17.0",
+    "merge2": "^1.0.3"
   }
 }

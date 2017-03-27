@@ -9,12 +9,23 @@ const rename = require("gulp-rename");
 const jsmin = require("gulp-jsmin");
 const image = require("gulp-image");
 const jade = require("gulp-jade");
+const autoprefixer = require('gulp-autoprefixer');
+const merge2 = require('merge2');
 /*
 design goals
 
-        jade main html
+        jade main and minify html
         compile and minify and concat js
-        compile and concat 
+        compile and concat and prefix css
+        
+        do not forget it is possible to merge streams...
+        
+        friendly reminder for fps
+        
+        ./ current dir then folder under
+        ../parent up 1 dir stackable
+        ./subdir/  in the subdir assumed in current dir.....
+        
 */
 
 //Settings and Configuration
