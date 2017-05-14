@@ -1,6 +1,8 @@
 "use strict";
 //Requires & Setup
 
+
+//README comment to future self: not all requires are installed via npm nor in package
 //Base GULP
 const gulp = require('gulp');
 
@@ -26,6 +28,15 @@ const cleancss = require('gulp-clean-css'); // dont forget to install this
 const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass');
 const concatCss = require('gulp-concat-css'); // dont forget to install this
+
+
+var fatalLevel = require('yargs').argv.fatal;
+var plumber = require('gulp-plumber');
+var coffee = require('gulp-coffee');
+var gutil = require('gulp-util');
+//use pipe().on('error',function(err){}).pipe()
+
+var gulpPath = require('gulp-path');//install...
 
 /*
 design goals
