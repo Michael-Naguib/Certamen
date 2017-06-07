@@ -8,7 +8,8 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 
 ## Devlopment tips
 * Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081
-* It Currently does not go to the index.min.html by default so here is the path http://localhost:8081/markup/index.min.html
+* An index.php file in "www" redirects to markup/index.min.html. 
+* "www" is treated as the root directory. 
 * DO NOT FORGET to run ```gulp``` in terminal before you start work on the project... it will update the www which the server hosts!
 
 ## Working with links
