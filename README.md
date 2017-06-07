@@ -7,24 +7,18 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 * Run the command ```npm run setup ``` in terminal to install the dependancies 
 
 ## Devlopment tips
-* Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081
-* An index.php file in "www" redirects to markup/index.min.html. 
-* "www" is treated as the root directory. 
-* DO NOT FORGET to run ```gulp``` in terminal before you start work on the project... it will update the www which the server hosts!
+* Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081 which hosts the './webRoot' folder
+* The 'webRoot' folder will be treated as the server root folder... program links accordingly  
+* Running the ```gulp``` command will build the site (you must run the command to see the changes you made in the ./dev folder, implemented!)
 
 ## Working with links
-* Relative links will need a lot of work if they are going to work withine wordpress as shortcode... see comments in shortcode.php
-* All Production scripts,assets,etc... will be made avilable via the folder "www"
+* Relative links will need a lot of work if they are going to work withine wordpress as shortcode
+* './webRoot' is the hosted root dir
 
 ## Directory Structure
-* All jsx,scss,png,jpeg,gif,svg files will be made avilable via the followining directories for production names
-1. www/assets        For .png .jpeg .gif .svg and (anything else) -> implementation needs testing!!!!!
-2. www/javascript    For .js .min.js
-3. www/stylesheets   For .css .min.css
-4. www/markup        For .html .min.html 
-* The Gulpfile is configured to fit all files from /dev into these categories. 
-* The other files their respective directory according to the guide above
-* Please feel free to improve the gulp configuration :)
+* Besides ./dev and ./webRoot differeng in name their file structure is the same
+* NOTE: all .css .scss .js .jsx .pug/.jade .html will be minified and their file suffix will become for example: ' exampleFileName.min.html '
+* Some file-type files will be concatanated... refer to the comments in the ./gulpfile.js for more information concerning this...
 
 ## Site Admin Email
 * jcl.chancellors@gmail.com
