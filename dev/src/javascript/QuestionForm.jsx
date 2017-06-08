@@ -1,9 +1,11 @@
-"use strict";
-
 //Import the required components ect...
-import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+//import React from 'react';
+//import AppBar from 'material-ui/AppBar';
+//import injectTapEventPlugin from 'react-tap-event-plugin';
+
+var React = require("react");
+var AppBar = require("material-ui").AppBar;
+var injectTapEventPlugin = require('react-tap-event-plugin');
 
 class QuestionForm extends React.Component{
     constructor(){
@@ -12,10 +14,10 @@ class QuestionForm extends React.Component{
     render(){
         var getAnId = this.props.id || "ERROR-NO-ID-ASSIGNED";
         return(
-            <div className="QuestionForm" id={getAnId}>
-                <AppBar title={<span>Question Form</span>}/>
+            React.createElement("div", {className: "QuestionForm", id: getAnId}, 
+                React.createElement(AppBar, {title: React.createElement("span", null, "Question Form")})
                 
-            </div>
+            )
         );
     }
 }
@@ -24,6 +26,6 @@ injectTapEventPlugin();
 
 document.addEventListener("DOMContentLoaded", function(event) {
     console.log("Before Render");
-    ReactDOM.render(<QuestionForm id={"test"}/>,document.getElementById("page-container"));
+    ReactDOM.render(React.createElement(QuestionForm, {id: "test"}),document.getElementById("page-container"));
     console.log("After Render");
 });

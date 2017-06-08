@@ -4,10 +4,10 @@
   "description": "See `README.md`",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "gulp",
-    "server": "node serverdev.js 8081",
-    "setup": "npm install"
+    "test": "echo 'You Called the Test Command'",
+    "server": "node devserver.js 8081",
+    "setup": "npm install",
+    "build": " echo 'no build'"
   },
   "repository": {
     "type": "git",
@@ -31,10 +31,12 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
     "express": "^4.15.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
     "gulp-clean-css": "^3.4.1",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",
@@ -52,6 +54,8 @@
     "merge2": "^1.0.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

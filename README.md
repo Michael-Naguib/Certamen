@@ -6,6 +6,9 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 * Dependancies (see package.json)
 * Run the command ```npm run setup ``` in terminal to install the dependancies 
 
+## Areas that need Work:
+* A suitable way to transpile react with dependancies!!!
+* and maintain a workflow!
 ## Devlopment tips
 * Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081 which hosts the './webRoot' folder
 * The 'webRoot' folder will be treated as the server root folder... program links accordingly  
