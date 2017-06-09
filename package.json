@@ -7,7 +7,8 @@
     "test": "echo 'You Called the Test Command'",
     "server": "node devserver.js 8081",
     "setup": "npm install",
-    "build": " echo 'no build'"
+    "build": " echo 'no build however there is a dependancy build see package.json'",
+    "buildJsDeps": "gulp buildJsDeps"
   },
   "repository": {
     "type": "git",
@@ -64,6 +65,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "reactify": "^1.1.1",
     "rollup-plugin-babel": "^2.7.1",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }
