@@ -10,13 +10,15 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 * A suitable way to transpile react with dependancies!!!
 * and maintain a workflow!
 ## Devlopment tips
-* Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081 which hosts the './webRoot' folder
+* Running ``` node devserver.js ``` in terminal starts a local server at http://localhost:8085 which hosts the './webRoot' folder
 * The 'webRoot' folder will be treated as the server root folder... program links accordingly  
 * Running the ```gulp``` command will build the site (you must run the command to see the changes you made in the ./dev folder, implemented!)
+* Running the ``` gulp nobuild``` will compile everything except vendors.js to gain a speed boost... you can compile vendors.js by ``` gulp buildJsDeps```
 
 ## Working with links
 * Relative links will need a lot of work if they are going to work withine wordpress as shortcode
-* './webRoot' is the hosted root dir
+* './webRoot' is the hosted root dir unless otherwise specified as the seccond argument to devserver.js ``` node devserver.js 80 '/aDirOfYourChoice'```
+* ./dev and ./webRoot are identical in structure so in ./dev you can make a relative link to "src/markup/extra.html" BUT KNOW THAT all scripts,stylings,and markup will change to have the suffix .min in the ./webRoot folder... for example the previous becomes "src/markup/extra.min.html"
 
 ## Directory Structure
 * Besides ./dev and ./webRoot differeng in name their file structure is the same

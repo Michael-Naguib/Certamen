@@ -1,15 +1,4 @@
-import React from 'react';
-import AppBar from 'material-ui/AppBar';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import TextField from 'material-ui/TextField';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import Chip from 'material-ui/Chip';
-import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
+"use strict";
 
 class QuestionForm extends React.Component{
     constructor(){
@@ -47,10 +36,12 @@ class QuestionForm extends React.Component{
     }
 }
 
-const QuestionFormComponent = ()=> (<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}><QuestionForm></QuestionForm></MuiThemeProvider>);
-injectTapEventPlugin();
+
+
 
 document.addEventListener("DOMContentLoaded", function(event) {
+    var MuiThemeProvider;
+    const QuestionFormComponent = ()=> (<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}><QuestionForm></QuestionForm></MuiThemeProvider>);
     console.log("Before Render");
     ReactDOM.render(React.createElement(QuestionFormComponent, {id: "test"}),document.getElementById("page-container"));
     console.log("After Render");

@@ -5,10 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo 'You Called the Test Command'",
-    "server": "node devserver.js 8081",
+    "server": "cd ./ && node devserver.js 8086 '/webroot'",
     "setup": "npm install",
-    "build": " echo 'no build however there is a dependancy build see package.json'",
-    "buildJsDeps": "gulp buildJsDeps"
+    "build": "gulp buildJsDeps"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-material-ui": "^0.3.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",

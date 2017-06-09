@@ -20,3 +20,4 @@ import Divider from 'material-ui/Divider';
 import Chip from 'material-ui/Chip';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
+injectTapEventPlugin();

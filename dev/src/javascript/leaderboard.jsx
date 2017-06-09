@@ -17,7 +17,7 @@ class LeaderboardAside extends React.Component{
         $.ajax({url:this.state.genDataUrl, success: function(result){
             try{
                 this.setState({userData:Json.parse(result)});
-            }catch(var e){
+            }catch(e){
                 this.setState({retrievalErr: true});
             }
             

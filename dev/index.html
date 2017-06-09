@@ -1,6 +1,11 @@
 <Doctype html>
 <html lang='en'>
     <head>
+        <!--
+            ### README! 
+            + Despite ./dev having an identical file structure to ./webRoot Know that some files will be renamed for example:
+            + oldfilename.extension to oldfilename.min.extension    The .min suffix may be added by the gulp files
+        -->
         <!--============= Meta ===============================-->
         <title>Chancellor JCL</title>
         <meta http-equiv="Pragma" content="no-cache"><!--Remove in production -->
@@ -16,12 +21,6 @@
         <!--============= React and React-Dom ===============-->
         <script src="https://unpkg.com/react@15/dist/react.min.js"></script><!--Must be loaded before the transpiled jsx-->
         <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-                
-        <!--============= External Docs. ====================-->
-        <link rel='stylesheets' href='src/stylesheets/index.min.css'>
-        <script src="src/javascript/index.min.js" defer></script>
-        <script src="src/javascript/vendors.min.js" defer></script>
-        <script src="src/javascript/QuestionForm.js" defer></script><!--Expiramental ONLY!!! -->
         
         <!--============= CDN Docs ==========================-->
             <!--=== JQuery Full Minified ===-->
@@ -30,6 +29,12 @@
 
             <!--=== Google Api with OpenAuth ===-->
             <script async defer src="https://apis.google.com/js/api.js" onload="undefined" onreadystatechange="undefined"></script>
+        
+        <!--============= External Docs. ====================-->
+        <script src="src/javascript/vendors.min.js" ></script>
+        <link rel='stylesheets' href='src/stylesheets/index.min.css'>
+        <script src="src/javascript/index.min.js" ></script>
+        <script src="src/javascript/QuestionForm.min.js" ></script><!--Expiramental ONLY!!! DO NOT DEFER ANY OF THESE -->
         
         <!--============= Google Analyitics ================-->
         <script>
