@@ -9,6 +9,8 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 ## Areas that need Work:
 * A suitable way to transpile react with dependancies!!!
 * and maintain a workflow!
+* THROW OUT gulp and Migrate to Webpack!!!!!!
+
 ## Devlopment tips
 * Running ``` node devserver.js ``` in terminal starts a local server at http://localhost:8085 which hosts the './webRoot' folder
 * The 'webRoot' folder will be treated as the server root folder... program links accordingly  
