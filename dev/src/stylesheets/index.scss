@@ -1,14 +1,14 @@
 //====== Chancellor Color Palate: derived from looking at http://stmacademy.org/ ======
     $maroonDark: "#66000E";
     $maroonSpecialDark: "#630A16";
-    $maroonLight: "8A0113";
+    $maroonLight: "#8A0113";
 
     $white: "#FFFFFF"; // Because the white on websites is not always pure as #FFFFFF
 
     $greyDark: "#303030";
-    $greyLight: "7E7E7E";
-    $greySpecialLight: "E2E2E2";
-    $greySpecialLight2: "A5A5A5";
+    $greyLight: "#7E7E7E";
+    $greySpecialLight: "#E2E2E2";
+    $greySpecialLight2: "#A5A5A5";
     $greySpecialDark: "#6F6F6F";
 
     //Recomendations....
@@ -16,5 +16,59 @@
     // text: $white   $greyDark   $greyLight   $greySpecialDark  $greySpecialLight2
     // ...etc... see http://stmacademy.org/ , the chancellor jcl website should try to match color wise...
 
+//========================== Setup the Custom Fonts ===================================
+    // SEE the readme.md in the fonts dir!!!
+    //Regular
+/*
+    @font-face {
+        font-family:liberation ;
+        src: url(./src/assets/fonts/LiberationSerif-Regular-webfont.woff);
+        font-style: normal;
+    }
 
+    //Bold
+    @font-face {
+        font-family:liberation ;
+        src: url(./src/assets/fonts/LiberationSerif-Bold-webfont.woff);
+        font-weight: bold;
+    }
+
+    //Italic
+    @font-face {
+        font-family:liberation ;
+        src: url(./src/assets/fonts/LiberationSerif-Italic-webfont.woff);
+        font-style: italic;
+    }
+*/
 //=================================== Question Form Page ==============================
+    //==== Question Form Header ====
+    #QuestionForm-Header{
+        
+        //Child Stylings
+        h1{
+            color:$white;
+            font-family: liberation,sans-serif;
+            font-weight: bold;
+            padding:10px 0px 10px 90px;
+        }
+        
+        //QuestionForm-Header stylings
+        background-color: $maroonDark;// consider $maroonLight ?
+        width: 100%;
+        margin: 0px 0px 0px 0px; // To fix any default stylings explicitly
+        
+    }
+    #TagsComponent-button{
+        margin-left: 4px;
+        margin-right: 10px;
+    }
+
+
+//======================= QUICK EXPIRAMENTAL TEST CODE HERE!!! ========================
+#main-container{
+    background-color: $greyDark;
+}
+body{
+    background-color: $greyDark;
+    padding: 30px;
+}

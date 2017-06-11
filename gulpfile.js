@@ -9,6 +9,7 @@ const named = require('vinyl-named')
 
 //Html and markup
 const htmlmin = require("gulp-htmlmin");
+//const htmlv = require('gulp-html-validator');
 
 //Css and Scss (Stylings)
 const cleanCss = require('gulp-clean-css');
@@ -35,6 +36,7 @@ gulp.task("js",()=>{
     return gulp.src("./dev/src/javascript/*.{js,jsx}")
         .pipe(named())
         .pipe(webpack(require('./webpack.config.js')))
+        .pipe(rename({suffix:".min"}))
         .pipe(gulp.dest("./webRoot/src/javascript/"));
 });
 
@@ -87,6 +89,8 @@ gulp.task("html",function(){
         if(hConfig.minify){
             current = minifyHTML(current);
         }
+        //Validate html
+        //current = current.pipe(htmlv({format: 'html'}));
         
         //Set their destinations
         current.pipe(gulp.dest(hConfig.fileOutDirs[i]));

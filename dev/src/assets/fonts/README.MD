@@ -1,0 +1,3 @@
+## Fonts:
+* In an effort to match style of the website http://stmacademy.org/ their custom fonts are imported to be used
+* ~~ many thanks to those devs for the work on that site...

@@ -7,8 +7,8 @@ var app = express();
 
 //Get user Command line input
 const settings = {
-    serveDir: process.argv[3] || "/webRoot",
-    servePort: process.argv[2] || 8085,
+    serveDir: process.argv[3] || "./webRoot",
+    servePort: process.argv[2] || 8086,
     index: "index.min.html"
 };
 
