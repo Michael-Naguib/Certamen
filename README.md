@@ -1,5 +1,6 @@
 # Certamen 
-A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link may change) that will be a work in progress
+* A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link may change) that will be a work in progress
+* This project is NOT associated with the business http://stmacademy.org/ ... only except as a JCL club with a site pending approval...
 
 ## Environment Requirements:
 * Node Js

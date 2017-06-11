@@ -5,8 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo 'You Called the Test Command'",
-    "server": "cd ./ && node devserver.js 8086 '/webroot'",
-    "setup": "npm install"
+    "server": " echo  running it from npm messes with the directory... run this command: node devserver.js 8086 '/webroot'",
+    "setup": "npm install",
+    "build": "gulp",
+    "quickbuild": "echo 'Js will not be compiled' && gulp sinjs"
   },
   "repository": {
     "type": "git",
