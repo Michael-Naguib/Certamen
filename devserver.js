@@ -20,7 +20,8 @@ app.use(express.static(path.join(__dirname, settings.serveDir)));
 
 // Listen for requests
 var devserver = app.listen(app.get('port'), function() {
-  var port = devserver.address().port;
-  console.log("[Server] be sure to build the site so that code changes are reflected in the code");
-  console.log('[Server] listening on '+ port + " hosting the directory: " + settings.serveDir);  
+    var port = devserver.address().port;
+    console.log("[Server] be sure to build the site so that code changes are reflected in the code");
+    console.log('[Server] listening on '+ port + " hosting the directory: " + settings.serveDir);
+    console.log("[Server] The default served document from the root folder is: " + settings.index);
 });

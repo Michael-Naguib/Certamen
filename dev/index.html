@@ -8,9 +8,11 @@
         -->
         <!--============= Meta ===============================-->
         <title>Chancellor JCL</title>
-        <meta http-equiv="Pragma" content="no-cache"><!--Remove in production -->
-        <meta http-equiv="Expires" content="-1"><!-- restore to 1500 in production-->
-        <meta http-equiv="Refresh" content="-1"><!-- restore to 200 in production-->
+        <meta http-equiv="cache-control" content="max-age=0" /><!-- Change for production-->
+        <meta http-equiv="cache-control" content="no-cache" /><!--Remove in production -->
+        <meta http-equiv="expires" content="0" /><!-- Change for production-->
+        <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" /><!-- Change for production-->
+        <meta http-equiv="pragma" content="no-cache" /><!--Remove in production -->
         <meta charset='utf-8'>
 		<meta name='keywords' content='JCL,Certamen,Chancellors,Kyle,Michael,latin,Jeaprody,Stma'>
 		<meta name='author' content='Michael N., Kyle M.'>
@@ -19,8 +21,9 @@
 		<link rel="shortcut icon" href="resources/webBarIcon.ico" />
         
         <!--============= React and React-Dom ===============-->
-        <script src="https://unpkg.com/react@15/dist/react.min.js"></script><!--Must be loaded before the transpiled jsx-->
-        <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+        <!-- <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>-->
+        <!--THESE ARE BUNDLED WITH THE SCRIPTS VIA WEBPACK!!!! uncomment if this ever changes....-->
         
         <!--============= CDN Docs ==========================-->
             <!--=== JQuery Full Minified ===-->
@@ -31,10 +34,8 @@
             <script async defer src="https://apis.google.com/js/api.js" onload="undefined" onreadystatechange="undefined"></script>
         
         <!--============= External Docs. ====================-->
-        <script src="src/javascript/vendors.min.js" ></script>
-        <link rel='stylesheets' href='src/stylesheets/index.min.css'>
+        <link rel='stylesheets' href='src/stylesheets/index.min.css'><!-- Load after JQuery,-->
         <script src="src/javascript/index.min.js" ></script>
-        <script src="src/javascript/QuestionForm.min.js" ></script><!--Expiramental ONLY!!! DO NOT DEFER ANY OF THESE -->
         
         <!--============= Google Analyitics ================-->
         <script>
@@ -47,6 +48,10 @@
 
     </head>
     <body>
-        <div id="page-container"></div>   
+        <div id="page-container">
+            <div id="header-container"></div>
+            <div id="main-container"></div>
+            <div id="footer-container"></div>
+        </div>   
     </body>
 </html>

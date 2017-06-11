@@ -9,13 +9,15 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 ## Areas that need Work:
 * A suitable way to transpile react with dependancies!!!
 * and maintain a workflow!
-* THROW OUT gulp and Migrate to Webpack!!!!!!
+* Migrated to webpack
 
 ## Devlopment tips
 * Running ``` node devserver.js ``` in terminal starts a local server at http://localhost:8085 which hosts the './webRoot' folder
 * The 'webRoot' folder will be treated as the server root folder... program links accordingly  
 * Running the ```gulp``` command will build the site (you must run the command to see the changes you made in the ./dev folder, implemented!)
-* Running the ``` gulp nobuild``` will compile everything except vendors.js to gain a speed boost... you can compile vendors.js by ``` gulp buildJsDeps```
+* Running the ``` gulp js``` command is more resource intensive and may take some time!!!
+* Link depandencies in any .jsx file in that file EXPLICITLY!!!! webpack does not gaurentee it in the global scope...
+* You can include scripts via ``` import x from './y.js' ```
 
 ## Working with links
 * Relative links will need a lot of work if they are going to work withine wordpress as shortcode
