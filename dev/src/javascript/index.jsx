@@ -23,12 +23,25 @@ injectTapEventPlugin();
 //==================== Question Form Page =======================
     /*
         goals:  good ux, auto check on user stop typing, store files in a global object
+        
+        consider for the TextFields adding fullWidth={true} prop since they will be in responsive elements.....
+        
+        Quick note on how data passing is handled:
+        
+        1. in the child a function 'giveData' is explicitly bound to it's scope for 'this' so it has access to the object
+        2. the child expects to recieve a prop 'takeData' which is a function of the parent element bound to its scope for 'this' respectivly
+        3. 'giveData' organizes and accesses the childs data then calls the passed 'takeData' function which can then add the data to the parent scope..
+        4. given the way react works... giveData will be called very often when there is small change... always add it the OnChange functions...
+        5. this ensures at any given time the parent which owns the 'takeData' function will have the most current data.... 
+        
     */
 
     //Header Component
     var QuestionFormHeader = <div id="QuestionForm-Header"> 
             <h2> Question Form </h2>
         </div>;
+
+
     // Tags Component       give props of takeData
     class TagsComponent extends React.Component{
         
@@ -230,32 +243,178 @@ injectTapEventPlugin();
         }
     }
     
-    //AnswerChoice input pass props answerLabel, takeData ---> also passes labelId!!!   must be placed in a RadioButtonGroup
+    //AnswerChoice input pass props hintText answerLabel takeData --->  passes [label,answerText]!!   must be placed in a RadioButtonGroup
     class AnswerChoiceInput extends React.Component{
+        //setup
         constructor(){
+            //setup
             super();
             this.state={};
+            
+            //explicitly bind
+            this.giveData = this.giveData.bind(this);
+            this.recieveTextInputHelper = this.recieveTextInputHelper.bind(this);
+            
+            //answer storage....
+            this.answerValue="";
         }
-        //add method: getData; also pass the id of this function..... also figure out a way to get the radio value in the parent..
+        
+        //add method: giveData; also pass the id of this function
+        giveData(){
+            if(this.props.takeData){
+                //data to be passed
+                var passedValue = [this.props.answerLabel,this.answerValue];
+            
+                // pass the data
+                this.props.takeData(passedValue);
+            }
+        }
+        
+        //get the data from the text field... (radio will be handled by parent...)
+        recieveTextInputHelper(fevent,newText){
+            // update the stored value
+            this.answerValue = newText;
+            
+            //supply the parent with the most recent info
+            this.giveData();
+        }
+        
+        //render
+        render(){
+            var label = this.props.answerLabel;
+            var hint = this.props.hintText;
+            
+            // Because the template wasalreadydesigned by the time i found this bub::::
+            if(hint){ //fixed an issue....
+                 return(
+                    <div className="AnswerChoiceInput">
+                        <span className="AnswerChoiceInput-label-container">
+                            <h4 className="AnswerChoiceInput-label" >{label}</h4>
+                        </span>
+                        <TextField className="AnswerChoiceInput-TextField" hintText={hint} underlineFocusStyle={{borderColor:"#8A0113"}} onChange={this.recieveTextInputHelper}/>
+                    </div>
+                );
+            }else{
+                 return(
+                    <div className="AnswerChoiceInput">
+                        <span className="AnswerChoiceInput-label-container">
+                            <h5 className="AnswerChoiceInput-label" >{label}</h5>
+                        </span>
+                        <TextField className="AnswerChoiceInput-TextField" underlineFocusStyle={{borderColor:"#8A0113"}} onChange={this.recieveTextInputHelper} />
+                    </div>
+                );
+            }
+
+        };
+    }
+
+    //Answer choice wrapper form component container 
+    /*
+        takes the prop takeData recieves an object for example like: 
+        {
+            answers:{a:'foo',b:'bar',c:'baz',d:'FooBar',e:'FooBaz',},
+            answer:"a"
+        }
+    */
+    class AnswerChoiceWrapper extends React.Component{
+        
+        //setup
+        constructor(){
+            console.log("world");
+            //setup
+            super();
+            this.state = {};
+            
+            //explicitly bind
+            this.takeDataFromChild = this.takeDataFromChild.bind(this);
+            this.giveData = this.giveData.bind(this);
+            this.radioButtonGetDataHelper = this.radioButtonGetDataHelper.bind(this);
+            
+            //store the prompt data from child... input text fields
+            this.answers={
+                a: "",
+                b: "",
+                c: "",
+                d: "",
+                e: ""
+            };
+            
+            // store the correct answer key value e.g. a or b
+            this.correctAnswerKey = "";
+        }
+        
+        //for the child AnswerChoiceInput pass this as <AnswerChoiceInput answerLabel={"foo"} takeData={this.takeDataFromChild}
+        takeDataFromChild(recievedDataList){
+            // Key is the label which is the first item in the list (this function figures out where it needs to store the data...)
+            //  recievedDataList is a list that looks like ["Single Letter Label", "This is one of the answer choices"] -- >[label,answerText]
+            
+            //store the answer...
+            this.answers[recievedDataList[0]] = recievedDataList[1];
+            
+            //since the data data is updated call the give here .... and in radioButtonGetDataHelper
+            this.giveData();
+        }
+        
+        //giveData ---> bundle up child data and this elements data and send it to super parent.. assumes a prop takeData={}
+        giveData(){
+          if(this.props.takeData){
+                //organize the data:
+                var scopeFixHelp = this.answers;
+                var passedValue = {
+                    answers: scopeFixHelp,
+                    answer: this.correctAnswerKey
+                };
+
+                //call the parent function on it
+                this.props.takeData(passedValue);
+          }
+        }
+        
+        //radioButtonGetData Helper
+        radioButtonGetDataHelper(fevent,selectedValue){
+            //store the correct answer's key value ---> a,b,c,d or e
+            this.correctAnswerKey = selectedValue;
+            
+            //since the data data is updated call the give here and in takeData From child...
+            this.giveData();
+        }
+        
+        //render....
+
         render(){
             return(
-                <div className="AnswerChoiceInput">
-                    <span className="AnswerChoiceInput-label-container">
-                        <h5 className="AnswerChoiceInput-label" >{this.props.answerLabel}</h5>
-                    </span>
-                    <TextField className="AnswerChoiceInput-TextField" underlineFocusStyle={{borderColor:"#8A0113"}}/>
-                    <RadioButton className="AnswerChoiceInput-RadioButton"/>
+                <div className="AnswerChoiceWrapper">
+                    <div className="AnswerChoiceWrapper-title-container">
+                        <h3 className="AnswerChoiceWrapper-title" > Answer Choices:</h3>
+                    </div>
+                    <div>       
+                        <AnswerChoiceInput hintText={"You can click the circle to mark the correct answer"} answerLabel="A" takeData={this.takeDataFromChild}/>
+                        <AnswerChoiceInput hintText={"The answer will appear as you type it"} answerLabel="B" takeData={this.takeDataFromChild}/>
+                        <AnswerChoiceInput hintText={false} answerLabel="C" takeData={this.takerDataFromChild}/>
+                        <AnswerChoiceInput hintText={false} answerLabel="D" takeData={this.takerDataFromChild}/>
+                        <AnswerChoiceInput hintText={false} answerLabel="E" takeData={this.takerDataFromChild}/>
+                    </div>
+                    <RadioButtonGroup className="AnswerChoiceWrapper-choices-container" onChange={this.radioButtonGetDataHelper} name="allAnswers" labelPosition="left" labelStyle={{color: "#FFFFFF"}}>
+                        <RadioButton value="a" label="A"/>
+                        <RadioButton value="b" label="B"/>
+                        <RadioButton value="c" label="C"/>
+                        <RadioButton value="d" label="D"/>
+                        <RadioButton value="e"label="E"/>
+                    </RadioButtonGroup>
                 </div>
             );
-        };
+        }
+        
     }
 
 //Load the tagsComponent after the dom loads
 document.addEventListener("DOMContentLoaded",()=>{
+    //Since there is no parent to take the data from these child elements :  takeData={false}   remember to change this in dev...
     var subMain = <div>
             <BasicInput takeData={false} hintText={"An optional Prompt, Possibly a paragraph of latin?"} titleText="Pre Question Prompt:"/>
             <BasicInput takeData={false} hintText={"The Main Question being asked; include punctuation."} titleText="Question:"/>
             <BasicInput takeData={false} hintText={"An optional Clue as to the meaning of a few words in a paragraph?"} titleText="Helps:"/>
+            <AnswerChoiceWrapper takeData={false} />
             <TagsComponent takeData={false}/>
         </div>;
     var Main = ()=>(<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
