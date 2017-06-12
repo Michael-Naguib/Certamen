@@ -15,6 +15,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import Chip from 'material-ui/Chip';
 import FlatButton from 'material-ui/FlatButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 injectTapEventPlugin();
 
 // ================================== Main Code =========================================
@@ -24,11 +25,11 @@ injectTapEventPlugin();
         goals:  good ux, auto check on user stop typing, store files in a global object
     */
 
-    //Header
+    //Header Component
     var QuestionFormHeader = <div id="QuestionForm-Header"> 
             <h2> Question Form </h2>
         </div>;
-    // Tags Component
+    // Tags Component       give props of takeData
     class TagsComponent extends React.Component{
         
         //Setup initialize state and explicitly bind the context of 'this'
@@ -174,6 +175,9 @@ injectTapEventPlugin();
             //return the render ... 
                 return(
                     <div className="TagsComponent-main-container">
+                        <div className="TagsComponent-title-container">
+                            <h3 className="TagsComponent-title" >Tags: </h3>
+                        </div>
                         <div className="TagsComponent-tags-container" style={styles.wrapper}>
                             {tagsToBeRendered}
                         </div>
@@ -186,11 +190,76 @@ injectTapEventPlugin();
             //value={this.placeholder} 
         }
     }
+ 
+    // Basic Input     give props of takeData ,hintText and titleText
+    class BasicInput extends React.Component{
+        constructor(){
+            super();
+            this.state={};
+            
+            //explicitly bind
+            this.updateStoredValue = this.updateStoredValue.bind(this);
+            this.giveData = this.giveData.bind(this);
+            
+            //storage
+            this.value="";
+        }
+        giveData(){
+            
+            //check if prop defined
+            if(this.props.takeData){
+                //get the current state state of this child component
+                var passedValue = this.value;
+                
+                //call the parent method which was passed with this bound...
+                this.props.takeData(passedValue);
+            }
+        }
+        updateStoredValue(fevent,newText){
+            this.value = newText;
+        }
+        render(){
+            return(
+                <div className="BasicInput">
+                    <div className="BasicInput-title-container">
+                        <h3 className="BasicInput-title" >{this.props.titleText} </h3>
+                    </div>
+                    <TextField multiLine={true} rowsMax={5} className="BasicInput-TextField" onChange={this.updateStoredValue} hintText = {this.props.hintText} underlineFocusStyle={{borderColor:"#8A0113"}} />
+                </div>
+            );
+        }
+    }
+    
+    //AnswerChoice input pass props answerLabel, takeData ---> also passes labelId!!!   must be placed in a RadioButtonGroup
+    class AnswerChoiceInput extends React.Component{
+        constructor(){
+            super();
+            this.state={};
+        }
+        //add method: getData; also pass the id of this function..... also figure out a way to get the radio value in the parent..
+        render(){
+            return(
+                <div className="AnswerChoiceInput">
+                    <span className="AnswerChoiceInput-label-container">
+                        <h5 className="AnswerChoiceInput-label" >{this.props.answerLabel}</h5>
+                    </span>
+                    <TextField className="AnswerChoiceInput-TextField" underlineFocusStyle={{borderColor:"#8A0113"}}/>
+                    <RadioButton className="AnswerChoiceInput-RadioButton"/>
+                </div>
+            );
+        };
+    }
 
 //Load the tagsComponent after the dom loads
 document.addEventListener("DOMContentLoaded",()=>{
-    var Main = ()=>(<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    var subMain = <div>
+            <BasicInput takeData={false} hintText={"An optional Prompt, Possibly a paragraph of latin?"} titleText="Pre Question Prompt:"/>
+            <BasicInput takeData={false} hintText={"The Main Question being asked; include punctuation."} titleText="Question:"/>
+            <BasicInput takeData={false} hintText={"An optional Clue as to the meaning of a few words in a paragraph?"} titleText="Helps:"/>
             <TagsComponent takeData={false}/>
+        </div>;
+    var Main = ()=>(<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                {subMain}
         </MuiThemeProvider>);
     //convert mui and tagcomponent into one using it as a inline return function ()=>() and render it into the main container
     ReactDOM.render(<Main/>, document.getElementById("main-container"))

@@ -62,7 +62,30 @@
         margin-left: 6px !important;
         margin-right: 10px;
     }
-
+    .TagsComponent-title-container{
+        padding: 15px 0px 7px 0px;
+    }
+    .TagsComponent-title{ color: $white;}
+    //========== BasicInput ========
+    .BasicInput{
+        //padding: 15px;
+        background-color: $greyDark;
+    }
+    .BasicInput-title-container{
+        padding: 15px 0px 7px 0px;
+    }
+    .BasicInput-title{
+        color: $white;
+    }
+    .BasicInput-TextField{
+        //styled by inline jsx css mix~~
+    }
+    //====== AnswerChoiceInput ======
+.AnswerChoiceInput{}
+.AnswerChoiceInput-label-container{}
+.AnswerChoiceInput-label{}
+.AnswerChoiceInput-TextField{}
+.AnswerChoiceInput-RadioButton{}
 
 //======================= QUICK EXPIRAMENTAL TEST CODE HERE!!! ========================
 #main-container{
