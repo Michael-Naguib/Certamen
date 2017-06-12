@@ -1,15 +1,15 @@
 //====== Chancellor Color Palate: derived from looking at http://stmacademy.org/ ======
-    $maroonDark: "#66000E";
-    $maroonSpecialDark: "#630A16";
-    $maroonLight: "#8A0113";
+    $maroonDark: #66000E;
+    $maroonSpecialDark: #630A16;
+    $maroonLight: #8A0113;
 
-    $white: "#FFFFFF"; // Because the white on websites is not always pure as #FFFFFF
+    $white: #FFFFFF; // Because the white on websites is not always pure as #FFFFFF
 
-    $greyDark: "#303030";
-    $greyLight: "#7E7E7E";
-    $greySpecialLight: "#E2E2E2";
-    $greySpecialLight2: "#A5A5A5";
-    $greySpecialDark: "#6F6F6F";
+    $greyDark: #303030;
+    $greyLight: #7E7E7E;
+    $greySpecialLight: #E2E2E2;
+    $greySpecialLight2: #A5A5A5;
+    $greySpecialDark: #6F6F6F;
 
     //Recomendations....
     // backgrounds: $greySpecialLight    $maroonDark    $white   $greyDark
@@ -58,8 +58,8 @@
         margin: 0px 0px 0px 0px; // To fix any default stylings explicitly
         
     }
-    #TagsComponent-button{
-        margin-left: 4px;
+    .TagsComponent-button{
+        margin-left: 6px !important;
         margin-right: 10px;
     }
 

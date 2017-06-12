@@ -40,13 +40,12 @@ injectTapEventPlugin();
             this.submitTag = this.submitTag.bind(this);
             this.addTag = this.addTag.bind(this);
             this.enterKeySubmitHelper = this.enterKeySubmitHelper.bind(this);
+            this.giveData = this.giveData.bind(this);
             
             //Set the initial state
             this.state={
                 allTags:[]
             }
-            //,
-            //    placeholder: ""
             
             //helper object (acts like a storage space...)
             this.inputTextValue = undefined;
@@ -89,13 +88,14 @@ injectTapEventPlugin();
         addTag(tagName){
             //update state
             this.setState((prevState,props)=>{
-                
                 // add the item to the list
                 prevState.allTags.push(tagName);
                 //console.log("[Added Tag]: "+ tagName);
-                //prevState.placeholder = "";
+    
                 return prevState;
             });
+            //GiveData
+            this.giveData();
         }
         
         //returns a function bound to the 'this' of TagsComponent that is generated to delete the index 'tagIndex'
@@ -110,7 +110,25 @@ injectTapEventPlugin();
                     prevState.allTags.splice(tagIndex,1);
                     return prevState;
                 });
+                
+                //GiveData
+                this.giveData();
             };
+        }
+        
+        // pass the a function explicitly bound to its parent in reference to 'this' as  the prop 'takeData' 
+        //,then it will always recieve the latest which this function sends it (allChips....)
+        giveData(){
+            //this method will be called when the state is computed...
+            if(this.props.takeData){
+                
+                //Get the data because 'this' is defined by this functions scope...explicitly in constructor
+                var passedValue = this.state.allTags;
+            
+                //takeData is an method bound to 'this' of the parent of TagsComponent
+                this.props.takeData(passedValue);
+            }
+            
         }
         
         //render function.. compute chips.. ect....
@@ -160,8 +178,8 @@ injectTapEventPlugin();
                             {tagsToBeRendered}
                         </div>
                         <div className="TagsComponent-input-container">
-                            <TextField hintText={hintPrompt} onKeyDown={this.enterKeySubmitHelper} onChange={this.updateInputTagValue} underlineFocusStyle={{borderColor:"#8A0113"}}/>
-                            <FlatButton label="Add" onTouchTap={this.submitTag} id="TagsComponent-button"/>
+                            <TextField hintText={hintPrompt} onKeyDown={this.enterKeySubmitHelper} onChange={this.updateInputTagValue} underlineFocusStyle={{borderColor:"#8A0113"}} id="TagsComponent-text"/>
+                            <FlatButton label="Add" onTouchTap={this.submitTag} className="TagsComponent-button"/>
                         </div>
                     </div>
                 );
@@ -172,7 +190,7 @@ injectTapEventPlugin();
 //Load the tagsComponent after the dom loads
 document.addEventListener("DOMContentLoaded",()=>{
     var Main = ()=>(<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-            <TagsComponent/>
+            <TagsComponent takeData={false}/>
         </MuiThemeProvider>);
     //convert mui and tagcomponent into one using it as a inline return function ()=>() and render it into the main container
     ReactDOM.render(<Main/>, document.getElementById("main-container"))
