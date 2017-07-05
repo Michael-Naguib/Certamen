@@ -7,13 +7,16 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const apiConfig = require("../apiConfig.js");
 
+
+//Share the connection object !!!! === EFFICIENT ---> if more connections need to be opened node js will accomadate 
+var url = `mongodb://${ apiConfig.database.host}:${apiConfig.database.port}/${apiConfig.database.db}`;
+console.log("[chancellorApi-server] MongoDb at: " + url);
+var con = mongoose.connect(url,	{useMongoClient: true});
+
 module.exports = function(query,data,callback){
 	
 	try{
-
-		var url = `mongodb://${ apiConfig.database.host}:${apiConfig.database.port}/${apiConfig.database.db}`;
-		console.log(url);
-		var con = mongoose.connect(url,	{useMongoClient: true});
+		
 		con.then(function(db){
 			var question_model = db.model("question",question_schema);
 

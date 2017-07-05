@@ -37,9 +37,13 @@ const que_sort = require("./sort.js");
 const question_model = require("../__general__/question_schema.js");
 
 //Quick response~ testing purposes only
-var mkSuccess = function(msg){
+var mkSuccess = function(msg,extra){
 	console.log("[chancellorApi-server] "+ msg);
-	return JSON.stringify({success:"[chancellorApi-server] "+ msg});
+	var data = {success:"[chancellorApi-server] "+ msg};
+	if(extra){
+		data.extra = extra;
+	}
+	return JSON.stringify(data);
 }
 
 /*
@@ -53,8 +57,8 @@ var mkSuccess = function(msg){
 	formulate query
 	query
 	algroithmic sort (selection)
-	format
-	stringify 
+	format --> i.e cut out some info...
+	stringify---> Json...
 	send
 
 */
@@ -70,7 +74,7 @@ module.exports = function(req,res){
 		que_sort,
 		(data,callback)=>{
 			var timestamp = new Date();
-			res.send(mkSuccess("It worked !! generated at "+ timestamp))
+			res.send(mkSuccess("It worked !! generated at "+ timestamp,data))
 		}
 	],(err,result)=>{
 		if(err){
