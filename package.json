@@ -28,7 +28,9 @@
   },
   "homepage": "https://github.com/Michael-N/Certamen#readme",
   "devDependencies": {
+    "async": "^2.5.0",
     "express": "^4.15.2",
+    "express-session": "^1.15.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-cli": "^1.2.2",
@@ -41,9 +43,15 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
+    "helmet": "^3.6.1",
+    "json-normalizer": "^0.3.5",
     "json-safe-parse": "0.0.2",
+    "lodash": "^4.17.4",
     "material-ui": "^0.17.0",
     "merge2": "^1.0.3",
+    "mongodb": "^2.2.29",
+    "mongoose": "^4.11.1",
+    "sanitize": "^2.0.1",
     "validator": "^7.2.0"
   }
 }

@@ -3,18 +3,18 @@ var chancellorApi = function(){
 		# Api Documentation is spread via each class method for itselfe.... will need to be merged
 	*/
 	//Api Entry Path ~ needs implementation
-	this.__apiEntry = "/chancellorApi/";
+	this.__apiEntry = "/chancellorApi";
 	
 	//Routes for the individual api methods
 	this.__routes = {
-		authRoute:"/chancellorApi/authenticate/",
-		generateRoute:"/chancellorApi/generate/",
-		checkRoute:"/chancellorApi/check/",
-		reportRoute:"/chancellorApi/report/",
-		addRoute:"/chancellorApi/add/",
-		removeRoute:"/chancellorApi/remove/",
-		modifyRoute:"/chancellorApi/modify/",
-		queryRoute:"/chancellorApi/query/"
+		authRoute:"/authenticate/",
+		generateRoute:"/generate/",
+		checkRoute:"/check/",
+		reportRoute:"/report/",
+		addRoute:"/add/",
+		removeRoute:"/remove/",
+		modifyRoute:"/modify/",
+		queryRoute:"/query/"
 	};
 	
 	//chancellorApi.authenticate will only work, if a secure connection is established, when this is set to true
@@ -22,6 +22,15 @@ var chancellorApi = function(){
 	
 	//Tokens will only work, if a secure connection is established, when this is set to true
 	this.__token_only_https = true;
+	
+	//EXAMPLE OPTIONS
+	this.__ex_options =  {
+		quantity: 40,
+		tags:["foo","bar","baz"],
+		level: 4,
+		avgDifficulty: 2.5,
+		avgSize: 2
+	}
 }
 
 //=== Api Core === 
@@ -44,7 +53,8 @@ chancellorApi.prototype.__Warn = function (warnText){
 
 //handle the requests to and from the server... decode and all
 chancellorApi.prototype.__make_request = function(data,path,callback,token){
-	
+	//merge to api root
+	path = this.__apiEntry + path;
 	//make sure args are provided
 	//if(!(options && callback){
 	//	this.__Error(" the api method expected required aguments: options and a callback")
@@ -134,7 +144,7 @@ chancellorApi.prototype.generate = function(options,usercallback,token){
 				quantity: 40,
 				tags:["foo","bar","baz"],
 				level: 4,
-				avgDifficulty: 2.5
+				avgDifficulty: 2.5,
 				avgSize: 2
 			}
 		```

@@ -20,11 +20,13 @@ settings["routes"] = routes;
 
 //Database Settings~ worker access
 const database={
-	user:"",
-	pass:"",
-	port:"",
-	ip:""
+	user:false,
+	pass:false,
+	db:"chancellorApi",
+	port:27017,
+	host:"localhost"
 }
 settings["database"] = database;
 
+//export the settings
 module.exports = settings;
