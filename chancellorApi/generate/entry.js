@@ -32,6 +32,8 @@ const req_validate = require("./validate.js");
 const que_formulate = require("./formulate.js");
 const que_query = require("./query.js");
 const que_sort = require("./sort.js");
+const que_format = require("./format.js");
+const que_encode = require("./encode.js");
 
 //schema for querying
 const question_model = require("../__general__/question_schema.js");
@@ -72,15 +74,34 @@ module.exports = function(req,res){
 		que_formulate,
 		que_query,
 		que_sort,
+		que_format,
+		que_encode
+	],(err,result)=>{
+		try{
+			if(err){
+				res.setHeader('content-type', 'application/json');
+				res.status(500);
+				res.send(err);
+			}else{
+				res.setHeader('content-type', 'application/json');
+				res.status(200);
+				res.send(result)
+			}
+		}catch(e){
+			console.log("[chancellorApi-server]UNABLE TO SEND RESPONSE!!! USER GOT NOTHING:" + e);
+		}
+
+	});
+}
+
+
+
+/*
+
+Extra test function
+
 		(data,callback)=>{
 			var timestamp = new Date();
 			res.send(mkSuccess("It worked !! generated at "+ timestamp,data))
 		}
-	],(err,result)=>{
-		if(err){
-			res.status(500);
-			res.send(err);
-		}
-	});
-}
-
+*/

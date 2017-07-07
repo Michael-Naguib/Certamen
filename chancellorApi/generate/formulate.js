@@ -9,7 +9,7 @@ module.exports = function(data,callback){
 	try{
 		var query = {
 			'meta.latinLevel': data.level,
-			'meta.tags':{$all: data.tags}
+			'meta.tags':{$in: data.tags}
 		};
 		
 		callback(null,query,data);

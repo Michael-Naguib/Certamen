@@ -78,18 +78,18 @@ var answerChoices_schema = new mongoose.Schema({
 //Question
 var  question_schema_sub = new mongoose.Schema({
 	mainQuestion: {type: String, required:true},
-	additionalPrompt: {type: String, required:false},
-	helps: {type: String, required:false},
-	answers: answerChoices_schema,
-	correctAnswer:{type:String,lowercase:true,match:"[ABCDEabcde]",required:true}
+	additionalPrompt: {type: String, required:false,default:""},
+	helps: {type: String, required:false,default: ""},
+	answerChoices: answerChoices_schema,
+	correctAnswer:{type:String,lowercase:true,required:true}
 });
 
 //Reported
 var reported_schema = new mongoose.Schema({
-	incorrect: {type:Number},
-	mistake:{type:Number},
-	inappropriate:{type:Number},
-	flagedByMod: Boolean
+	incorrect: {type:Number,default:0},
+	mistake:{type:Number,default:0},
+	inappropriate:{type:Number,default:0},
+	flagedByMod: {type:Boolean,default:false}
 });
 
 //Meta
@@ -101,16 +101,16 @@ var meta_schema = new mongoose.Schema({
 	entryDate:{type: Date,required:true},
 	lastModified:{type: Date,default:Date.now},
 	author:{type: String, required:true},
-	questionYear:{type:Date,defaults: Date.now},
+	questionYear:{type:Date,default: Date.now},
 	popularity:{type:Number, max: 100, min:1,defaults: 50}
 });
 
 //User statistics
 var userStatistics_schema = new mongoose.Schema({
-	totalAnsweredIncorrect: {type:Number},
-	totalAnsweredCorrect: {type:Number},
-	avgTimeSpent: {type:Number},
-	totalUsersVisited:{type:Number}
+	totalAnsweredIncorrect: {type:Number,default:0},
+	totalAnsweredCorrect: {type:Number,default:0},
+	avgTimeSpent: {type:Number,default:0},
+	totalUsersVisited:{type:Number,default:0}
 });
 
 //Top level Parent Schema
@@ -120,7 +120,7 @@ var question_schema = new mongoose.Schema({
 	reported: reported_schema,
 	meta: meta_schema,
 	userStatistics: userStatistics_schema,
-	universalId:{type: String}
+	universalId:{type: String,default:""}
 });
 
 //THE MODEL!!!

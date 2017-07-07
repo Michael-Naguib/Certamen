@@ -4,6 +4,13 @@ var settings = {};
 //Api Entry Path: 
 settings["apiEntry"] = "/chancellorApi";
 
+//Error Notification/logging:
+const error = {
+	notifyAdminOnFatal: true,
+	admins:['soccer72msn2@gmail.com']
+}
+settings["error"] = error;
+
 //Routes
 const routes = {
 	authRoute:'/authenticate/',

@@ -2,7 +2,6 @@
 const mkError = require("./error_helper.js");
 const question_schema = require("../__general__/question_schema.js");
 const mongoose = require("mongoose");
-
 //do not use the  deprecated mongoose default~~~
 mongoose.Promise = global.Promise;
 const apiConfig = require("../apiConfig.js");
@@ -10,6 +9,7 @@ const apiConfig = require("../apiConfig.js");
 
 //Share the connection object !!!! === EFFICIENT ---> if more connections need to be opened node js will accomadate 
 var url = `mongodb://${ apiConfig.database.host}:${apiConfig.database.port}/${apiConfig.database.db}`;
+
 console.log("[chancellorApi-server] MongoDb at: " + url);
 var con = mongoose.connect(url,	{useMongoClient: true});
 

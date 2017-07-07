@@ -103,20 +103,28 @@ module.exports = function(results,data,callback){
 	try{
 		var judge = new Algorithim(data);
 		var doc_store = [];
-		var points_store = [];
 		results.on('error',(err)=>{
 			callback(mkError("Unable to rank the results " + err));
 		}).on('data',function(q_doc){
-			points_store.push(judge.__rank(q_doc));
-			doc_store.push(q_doc);
+			
+			doc_store.push([q_doc,judge.__rankIndividual(q_doc)]);
 		}).on('close',()=>{
 			var allPicked = [];
-			var allSortedDescending = points_store.sort(function(a, b){return b-a});
+			var allSortedDescending = doc_store.sort(function(a, b){return b[1]-a[1]});
+			
+			//remove the points ranking
+			for(var m=0;m<allSortedDescending.length;m++){
+				//console.log(allSortedDescending[m][0]);
+				allPicked.push(allSortedDescending[m][0]);
+			}
+			
 
 			if(data.quantity>= allSortedDescending.length){
-				allPicked = allSortedDescending;
+				
+				//understand the logic
+				allPicked = allPicked;
 			}else{
-				allpicked = allSortedDescending.slice(0,data.quantity);
+				allPicked = allPicked.slice(0,data.quantity);
 			}
 
 			callback(null,allPicked);

@@ -30,7 +30,7 @@ module.exports = function(data,callback){
 		callback(null,data);
 	}catch(e){
 		//error
-		callback(mkError("data not in proper format: " + e));
+		callback(mkError("Data not in proper format: " + e));
 	}
 	
 	//isvalid
