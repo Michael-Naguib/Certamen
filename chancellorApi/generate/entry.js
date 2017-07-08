@@ -94,14 +94,3 @@ module.exports = function(req,res){
 	});
 }
 
-
-
-/*
-
-Extra test function
-
-		(data,callback)=>{
-			var timestamp = new Date();
-			res.send(mkSuccess("It worked !! generated at "+ timestamp,data))
-		}
-*/

@@ -9,17 +9,17 @@ con.then(function(db){
 	
 	var data={
 		question:{
-			mainQuestion:"This is the main thing that is being asked?",
-			additionalPrompt:"A prompt/paragraph with additional info.",
-			helps: "Anything to help the person seeing the question",
+			mainQuestion:"Who is Jason's wife according to greek mythology",
+			additionalPrompt:"",
+			helps: "",
 			answerChoices:{
-				a:"The answer choice for label: a",
-				b:"The answer choice for label: b",
-				c:"The answer choice for label: c",
-				d:"The answer choice for label: d",
-				e:"The answer choice for label: e",
+				a:"Circe",
+				b:"Medea",
+				c:"Andromeda",
+				d:"Pelia",
+				e:"Lennia",
 			},
-			correctAnswer:"The letter of the correct answer"
+			correctAnswer:"b"
 		},
 		reported:{
 			incorrect:0,
@@ -28,13 +28,13 @@ con.then(function(db){
 			flagedByMod: false
 		},
 		meta:{
-			tags:["foo","bar","baz"],
-			difficulty:5,
+			tags:["history","jason","ship","greek","argonauts","golden fleece","black sea","lemnos","doilones","pelias","myth","quest"],
+			difficulty:3,
 			latinLevel: 4,
 			size: 2,
 			entryDate: new Date(),
 			lastModified: new Date(),
-			author: "SYSADMIN",
+			author: "Michael N.",
 			questionYear: new Date(),
 			popularity: 100
 		},

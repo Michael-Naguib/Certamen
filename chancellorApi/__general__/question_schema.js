@@ -94,7 +94,7 @@ var reported_schema = new mongoose.Schema({
 
 //Meta
 var meta_schema = new mongoose.Schema({
-	tags:[{type:String,lowercase:true}],
+	tags:[{type:String,lowercase:true,maxlength:25}],
 	difficulty: {type: Number,min:1,max:10,required:true},
 	latinLevel:{type:Number,min:0,max:5,required:true},
 	size:{type:Number,min:1,max:3,required:true},

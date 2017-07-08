@@ -32,10 +32,17 @@
 				//EXAMPLE OPTIONS
 				this.__ex_options =  {
 					quantity: 40,
-					tags:["foo","bar","baz"],
+					tags:["foo","bar","baz","jason"],
 					level: 4,
 					avgDifficulty: 2.5,
 					avgSize: 2
+				}
+					
+				this.__ex_check = {
+					_ids : [
+						{_id:"595ede7ca5e5222a78aad0bd",answer:"d"},
+						{_id:"595ff7747ee5420eacea75e1",answer:"b"}
+					]
 				}
 			}
 
@@ -169,34 +176,59 @@
 				this.__make_request(options,this.__routes.generateRoute,usercallback,token);
 			}
 			
+			//Check to see if the supplied answer-question combo is correct
+			chancellorApi.prototype.check = function(values,usercallback,token){
+				this.__make_request(values,this.__routes.checkRoute,usercallback,token);
+			}
+			
 			//for convenience
 			var apiInstance = new chancellorApi();
+			console.log("Try Typing one of the API commands as stated in the paragraph");
 		</script>
+		<style>
+			p{
+				font-weight: 300;
+				font-family: serif;
+				font-size: 1.2em;
+			}
+			.coden{
+				background-color:bisque;
+				display:inline;
+			}
+		</style>
 	</head>
 	<body>
 		<h2>
 			This page has been loaded with the chancellorApi
 		</h2>
 		<p>
+			<div class="coden"></div>
+			Yes if you are a dev you are probably wondering why the script tag is like such:<br> TLDR; Node js and Fs server not include doc in server root... can be moved without causing any errs...<br><br>
 			This api can be accessed from the console of this page:
 			it is stored globally as chancellorApi <br>
-			Use: 'var apiInstance = new chancellorApi()'<br>
+			Use: '<div class="coden">var apiInstance = new chancellorApi()</div>'<br>
 			For now not all the methods etc... are done<br><br>
-			HOWEVER the 'apiInstance.generate' method is working<br>
+			HOWEVER the <div class="coden">apiInstance.generate</div>'' method is working<br>
 			to use it pass these arguments 'options,callback,authenticate'<br>
-			for generate options see 'apiInstance.__ex_options' property.. try it<br>
+			for generate options see '<div class="coden">apiInstance.__ex_options</div>' property.. try it<br>
 			the callback accepts two arguments which are 'status,response'<br>
-			so for example: function myCallback(status,response){/*do stuff*/}<br>
+			so for example: <div class="coden">function myCallback(status,response){/*do stuff*/}</div><br>
 			console.log is also valid for easy use <br>
 			authenticate for now just set it to false or leave it undefined<br><br>
 			the generate method passes a list of questions to the callback; (which have a unique id that can be used to get their answers later)<br><br>
-			example generate: ' apiInstance.generate(apiInstance.__ex_options,console.log,false); '<br>
+			example generate: '<div class="coden">  apiInstance.generate(apiInstance.__ex_options,console.log,false);  </div> '<br>
 			Go ahead copy the above into the console... apiInstance is a chancellorApi instance for your convenience<br><br>
+			example check '<div class="coden">  apiInstance.check(apiInstance.__ex_check,console.log,false); </div>'<br>
+			apiInstance.__ex_check is an object that looks like  <div class="coden">{_ids:[{_id:"weirdMongoIdHere",answer:"the user's answer"}]}</div><br>
+			apiInstance.__ex_check has been set with some predefined values so you can use it as an example... <br>
+			Note: ANY id recieved from getting questions from the .generate method can be used here to check the answer...<br><br>
 			Be sure to see the resulting values that are logged to the console<br>
 			Also try expirementing to see the robust error-defining serverbackend<br>
-			so for example 'apiInstance.generate({iwillerror:"i am empty"},console.log,false);'<br><br>
+			so for example '<div class="coden">apiInstance.generate({iwillerror:"i am empty"},console.log,false);</div>'<br><br>
 			
-			NOTE: any fatal error or potentially some regular errors can email a list of admins defined in the apiConfig<br>
+			NOTE: any fatal error or potentially some regular errors can email a list of admins defined in the apiConfig<br><br>
+			
+			may tho have mercy for such a poor/hastily written html flower pot :P <br>
 		</p>
 	</body>
 </html>

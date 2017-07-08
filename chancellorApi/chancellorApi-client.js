@@ -23,13 +23,20 @@ var chancellorApi = function(){
 	//Tokens will only work, if a secure connection is established, when this is set to true
 	this.__token_only_https = true;
 	
-	//EXAMPLE OPTIONS
+	//EXAMPLE OPTIONS gen
 	this.__ex_options =  {
 		quantity: 40,
-		tags:["foo","bar","baz"],
+		tags:["foo","bar","baz","jason"],
 		level: 4,
 		avgDifficulty: 2.5,
 		avgSize: 2
+	}
+	
+	this.__ex_check = {
+		_ids = [
+			{_id:"595ede7ca5e5222a78aad0bd",answer:"d"},// the correct one is c
+			{_id:"595ff7747ee5420eacea75e1",answer:"b"}
+		]
 	}
 }
 

@@ -7,6 +7,12 @@ module.exports = function(data,callback){
 	
 	
 	try{
+		//Make all the strings lowercase
+		for(var p =0; p<data.tags.length;p++){
+			data.tags[p] = data.tags[p].toLowerCase();
+		}
+		
+		//Build the json Query 
 		var query = {
 			'meta.latinLevel': data.level,
 			'meta.tags':{$in: data.tags}

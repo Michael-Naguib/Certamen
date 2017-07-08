@@ -9,7 +9,7 @@ var __tag__helper = {validator:function(items){
 
 var gen_schema = new mongoose.Schema({
 	quantity:{type: Number,max:40,min:1,required:true},
-	tags:{type: Array,required:true,validate:__tag__helper},
+	tags:{type: Array,required:true, validate:__tag__helper},
 	level:{type:Number,min:0,max:5,required:true},
 	avgDifficulty: {type: Number,min:1,max:10,required:false,default: 5},
 	avgSize:{type:Number,min:1,max:3,required:false,default:2}
