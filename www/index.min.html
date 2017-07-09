@@ -29,6 +29,8 @@
 				//Tokens will only work, if a secure connection is established, when this is set to true
 				this.__token_only_https = true;
 				this.example={};
+				this.example.password= "password";
+				this.example.username="admin";
 				//EXAMPLE OPTIONS
 				this.example.generate =  {
 					quantity: 40,
@@ -85,7 +87,9 @@
 
 					//Error handling for req.onreadystatechange function via explicit binding
 					var expBound__Error = this.__Error.bind(this);
-
+					
+					var usernamepassed = this.example.username;
+					var passwordpassed = this.example.password;
 					//set the handler for the response
 					req.onreadystatechange = function(){
 
@@ -117,7 +121,10 @@
 					if(token){
 						req.setRequestHeader("Authorization",token);
 					}
-
+					
+					//Auth as admin~~~~ testing only
+					data.username=usernamepassed;
+					data.password=passwordpassed;
 					//send the data as json;
 					req.send(JSON.stringify(data));
 
@@ -228,6 +235,8 @@
 			
 			NOTE: any fatal error or potentially some regular errors can email a list of admins defined in the apiConfig<br><br>
 			
+			one last thing: to use the api you must authenticate:<br> checkout apiInstance.example.password and .username .... currently the code is hardcoded to pass those values to the server..<br>
+			the error message is a bit vague at the moment but can be easily changed... is 404 should be 401<br><br>
 			may tho have mercy for such a poor/hastily written html flower pot :P <br>
 		</p>
 	</body>

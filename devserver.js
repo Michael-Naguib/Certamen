@@ -7,6 +7,20 @@ const config = require('config');
 const serverConfig = config.get("server");
 
 //~~Modules:
+//do not use the  deprecated mongoose default~~~
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
+
+//Generate & Store the Sessions
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+//Authentication
+const passport = require("passport");
+var myStrategy = require("./chancellorApi/authenticate/strategy.js");
+const localApiKey = require("passport-localapikey");
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
 //Paths...
 const path = require("path");
@@ -24,26 +38,12 @@ const express = require("express");
 //Helps to prevent security vulnerabilities 
 const helmet = require('helmet');
 
-//do not use the  deprecated mongoose default~~~
-const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
-
-//Generate & Store the Sessions
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-
-//Authentication
-const passport = require("passport");
-const localApiKey = require("passport-localapikey");
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
 //Chancellor API
 const chancellorApi = require("./chancellorApi/chancellorApi-server.js");
 const mkError = require("./chancellorApi/generate/error_helper.js");//Really usefull...
 
 /*
 **			A few notes about the code:
-**  		+ A shared mongo db connection promise is stored in MongoDbConnection
 **			+ Be sure to set settings for Production and Devlopment Environments 
 **			+ If you are wordering why some settings in the default or production .json files are
 **			  not working that may be because since they are read only _.pick() lodash was used... filters
@@ -66,15 +66,24 @@ try{
 		mongoUrl += `${mongoConfig.user}:${mongoConfig.pass}@`;
 	}
 	mongoUrl += `${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.db}`;
-	var MongoDbConnection=mongoose.createConnection(mongoUrl,{useMongoClient:true});
+	mongoose.connect(mongoUrl,{useMongoClient:true});//globaly shared connection
+	
+	//======== Setup Passport
+	passport.use(myStrategy.useMe);
+	passport.deserializeUser(myStrategy.deserialize);
+	passport.serializeUser(myStrategy.serialize);
 	
 	//======== Setup Session:
 	var sessionConfig = config.get("session");
 	//config object is not writable... make a copy that is writable....
 	sessionConfig = _.pick(sessionConfig,["secret","resave","saveUninitialized","cookie","store"]);
 	//TO FUTURE SELF: this may cause an error querying?
-	sessionConfig.store = new MongoStore({ dbPromise: MongoDbConnection });
+	sessionConfig.store = new MongoStore({ mongooseConnection: mongoose.connection });
 	app.use(session(sessionConfig));
+	
+	//Authenticate/Prep on session
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	//======== For security purposes: prevent vulenerabilities exploits
 	app.use(helmet());
@@ -85,7 +94,8 @@ try{
 	app.use(bodyParser.json(jsonConfig));
 	
 	//======== Generate Route for the chancellorApi.generate();
-	app.use(chancellorApi.path,chancellorApi.router);
+	var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
+	app.use(chancellorApi.path,Cauth,chancellorApi.router);
 
 	//======== Staticly Serve anything else:
 	app.use(express.static(path.join(__dirname, serverConfig.root)));
@@ -104,7 +114,8 @@ try{
 		console.log(chalk.green(mongoConStartMsg));
 	});
 }catch(e){	
-	if(process.env.NODE_ENV === "devlopment"){
+	//process.env.NODE_ENV === "devlopment"
+	if(true){
 		throw e; // FAIL Catestrophically in devlopment
 	}else{
 		// FAIL Gracefully(ie. server not crash & email to Admin) in production

@@ -1,43 +1,21 @@
 "use strict";
+//Helper function
 const mkError = require("./error_helper.js");
+
+//Schema
 const question_schema = require("../__general__/question_schema.js");
+
+//Conection Setup~ (shared from devserver.js)
 const mongoose = require("mongoose");
-//do not use the  deprecated mongoose default~~~
 mongoose.Promise = global.Promise;
-const apiConfig = require("../apiConfig.js");
-
-
-//Share the connection object !!!! === EFFICIENT ---> if more connections need to be opened node js will accomadate 
-var url = `mongodb://${ apiConfig.database.host}:${apiConfig.database.port}/${apiConfig.database.db}`;
-
-console.log("[chancellorApi-server] MongoDb at: " + url);
-var con = mongoose.connect(url,	{useMongoClient: true});
-/*
-
-Note to self: if you want to use a shared connection object
-you will need to modify these modules to become function builders
-that make a function off of 'connection' and accepts req,res etc... 
-
-*/
 
 module.exports = function(query,data,callback){
 	
 	try{
-		
-		con.then(function(db){
-			var question_model = db.model("question",question_schema);
-
-			let query_results = question_model.find(query).cursor();
-
-			callback(null,query_results,data);
-			
-		}).catch((e)=>{
-			
-			//ADMIN README!!!!!!!! e MAY CONTAIN SENSATIVE CONNECTION INFO !!!! DEBUG PURPOSES ONLY
-			//var err = mkError("Querying The database failed:" + e);
-			var err = mkError("Querying The database failed: could not connect( ADMIN? 'see line 26 in query.js' : 'contact ADMIN')");
-			callback(err);
-		});
+		// Shared connection used across the server.... defined in devserver.js
+		var question_model = mongoose.model("question",question_schema);
+		let query_results = question_model.find(query).cursor();
+		callback(null,query_results,data);
 		
 	}catch(e){
 		var err = mkError("Querying The database failed " + e);
