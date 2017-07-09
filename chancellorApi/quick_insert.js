@@ -9,17 +9,17 @@ con.then(function(db){
 	
 	var data={
 		question:{
-			mainQuestion:"Who is Jason's wife according to greek mythology",
+			mainQuestion:"What does 'Quid pro quo' mean",
 			additionalPrompt:"",
 			helps: "",
 			answerChoices:{
-				a:"Circe",
-				b:"Medea",
-				c:"Andromeda",
-				d:"Pelia",
-				e:"Lennia",
+				a:"what for what",
+				b:"Squid in defense of him",
+				c:"which for what",
+				d:"that for what",
+				e:"those for that",
 			},
-			correctAnswer:"b"
+			correctAnswer:"a"
 		},
 		reported:{
 			incorrect:0,
@@ -28,7 +28,7 @@ con.then(function(db){
 			flagedByMod: false
 		},
 		meta:{
-			tags:["history","jason","ship","greek","argonauts","golden fleece","black sea","lemnos","doilones","pelias","myth","quest"],
+			tags:["history","cicero","latin","translate","phrase","quote","quid","pro","quo"],
 			difficulty:3,
 			latinLevel: 4,
 			size: 2,

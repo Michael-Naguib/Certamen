@@ -16,7 +16,6 @@ module.exports = function(query_results,data,callback){
 			//figure out which answer is the user answer and set userAnswer
 			for(var k=0;k<data._ids.length;k++){
 				let testId = data._ids[k]._id;
-				console.log(testId === docFromDbId);
 				if(testId === docFromDbId){
 					
 					

@@ -24,15 +24,16 @@ var chancellorApi = function(){
 	this.__token_only_https = true;
 	
 	//EXAMPLE OPTIONS gen
-	this.__ex_options =  {
+	this.example = {};
+	this.example.generate =  {
 		quantity: 40,
-		tags:["foo","bar","baz","jason"],
+		tags:["foo","bar","baz","jason","cicero"],
 		level: 4,
 		avgDifficulty: 2.5,
 		avgSize: 2
 	}
 	
-	this.__ex_check = {
+	this.example.check = {
 		_ids = [
 			{_id:"595ede7ca5e5222a78aad0bd",answer:"d"},// the correct one is c
 			{_id:"595ff7747ee5420eacea75e1",answer:"b"}

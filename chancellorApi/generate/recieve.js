@@ -2,6 +2,7 @@
 
 
 module.exports = function(req,callback){
+	/*
 	var body = [];
 	req.on('data', function(chunk) {
   		body.push(chunk);
@@ -11,4 +12,7 @@ module.exports = function(req,callback){
   		body = Buffer.concat(body).toString();
 		callback(null,body);
 	});
+	*/
+	
+	callback(null,req.body);
 }

@@ -28,17 +28,17 @@
 
 				//Tokens will only work, if a secure connection is established, when this is set to true
 				this.__token_only_https = true;
-
+				this.example={};
 				//EXAMPLE OPTIONS
-				this.__ex_options =  {
+				this.example.generate =  {
 					quantity: 40,
-					tags:["foo","bar","baz","jason"],
+					tags:["foo","bar","baz","jason","cicero"],
 					level: 4,
 					avgDifficulty: 2.5,
 					avgSize: 2
 				}
 					
-				this.__ex_check = {
+				this.example.check = {
 					_ids : [
 						{_id:"595ede7ca5e5222a78aad0bd",answer:"d"},
 						{_id:"595ff7747ee5420eacea75e1",answer:"b"}
@@ -210,17 +210,17 @@
 			For now not all the methods etc... are done<br><br>
 			HOWEVER the <div class="coden">apiInstance.generate</div>'' method is working<br>
 			to use it pass these arguments 'options,callback,authenticate'<br>
-			for generate options see '<div class="coden">apiInstance.__ex_options</div>' property.. try it<br>
+			for generate options see '<div class="coden">apiInstance.example.generate</div>' property.. try it<br>
 			the callback accepts two arguments which are 'status,response'<br>
 			so for example: <div class="coden">function myCallback(status,response){/*do stuff*/}</div><br>
 			console.log is also valid for easy use <br>
 			authenticate for now just set it to false or leave it undefined<br><br>
 			the generate method passes a list of questions to the callback; (which have a unique id that can be used to get their answers later)<br><br>
-			example generate: '<div class="coden">  apiInstance.generate(apiInstance.__ex_options,console.log,false);  </div> '<br>
+			example generate: '<div class="coden">  apiInstance.generate(apiInstance.example.generate,console.log,false);  </div> '<br>
 			Go ahead copy the above into the console... apiInstance is a chancellorApi instance for your convenience<br><br>
-			example check '<div class="coden">  apiInstance.check(apiInstance.__ex_check,console.log,false); </div>'<br>
-			apiInstance.__ex_check is an object that looks like  <div class="coden">{_ids:[{_id:"weirdMongoIdHere",answer:"the user's answer"}]}</div><br>
-			apiInstance.__ex_check has been set with some predefined values so you can use it as an example... <br>
+			example check '<div class="coden">  apiInstance.check(apiInstance.example.check,console.log,false); </div>'<br>
+			apiInstance.example.check is an object that looks like  <div class="coden">{_ids:[{_id:"weirdMongoIdHere",answer:"the user's answer"}]}</div><br>
+			apiInstance.example.check has been set with some predefined values so you can use it as an example... <br>
 			Note: ANY id recieved from getting questions from the .generate method can be used here to check the answer...<br><br>
 			Be sure to see the resulting values that are logged to the console<br>
 			Also try expirementing to see the robust error-defining serverbackend<br>

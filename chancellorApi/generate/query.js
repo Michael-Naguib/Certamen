@@ -12,6 +12,13 @@ var url = `mongodb://${ apiConfig.database.host}:${apiConfig.database.port}/${ap
 
 console.log("[chancellorApi-server] MongoDb at: " + url);
 var con = mongoose.connect(url,	{useMongoClient: true});
+/*
+
+Note to self: if you want to use a shared connection object
+you will need to modify these modules to become function builders
+that make a function off of 'connection' and accepts req,res etc... 
+
+*/
 
 module.exports = function(query,data,callback){
 	
