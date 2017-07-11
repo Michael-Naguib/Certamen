@@ -14,5 +14,6 @@ module.exports = function(req,callback){
 	});
 	*/
 	
+	//Thanks to bodyparser this is handled...
 	callback(null,req.body);
 }

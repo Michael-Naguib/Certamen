@@ -66,6 +66,7 @@
     "passport-local": "^1.0.0",
     "passport-localapikey": "0.0.3",
     "password-hash": "^1.2.2",
+    "randomstring": "^1.1.5",
     "sanitize": "^2.0.1",
     "validator": "^7.2.0"
   }

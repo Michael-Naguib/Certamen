@@ -1,7 +1,7 @@
 //Settings
 var settings = {};
 
-//Api Entry Path: 
+//Api Entry Path:
 settings["apiEntry"] = "/chancellorApi";
 
 //Error Notification/logging:
@@ -21,7 +21,8 @@ const routes = {
 	removeRoute:'/remove/',
 	modifyRoute:'/modify/',
 	queryRoute:'/query/',
-	unauthorized:'/unauthorized'
+	unauthorized:'/unauthorized',
+	newUser:"/newUser/"
 };
 settings["routes"] = routes;
 

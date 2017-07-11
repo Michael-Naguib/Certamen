@@ -18,19 +18,23 @@ const apiConfig = require("./apiConfig.js");
 //Just add where-ever Authentication is required
 var Authenticate = passport.authenticate('local', { failureRedirect: '/chancellorApi'+apiConfig.routes.unauthorized});
 
-//======= Routing 
+//======= Routing
 //Route all Unauthorized to this..
 const unauth = require("./unauthorized/unauthorized.js");
 router.get(apiConfig.routes.unauthorized,unauth);
 //router.post(apiConfig.routes.unauthorized,unauth);
 
-//Generate Path 
+//Generate Path
 const gen = require("./generate/entry.js");
 router.post(apiConfig.routes.generateRoute,Authenticate,gen);
 
 //Check Path:
 const chk = require("./check/entry.js");
 router.post(apiConfig.routes.checkRoute,Authenticate,chk);
+
+//Add A new User Path:
+const newusr = require("./newUser/entry.js");
+router.post(apiConfig.routes.newUser,Authenticate,newusr);
 
 //====== Export it
 module.exports = {router:router,path: apiConfig.apiEntry};
