@@ -36,7 +36,7 @@ var chancellorApi = function(){
 	}
 	//example for the check api:
 	this.example.check = {
-		_ids = [
+		_ids : [
 			{_id:"595ede7ca5e5222a78aad0bd",answer:"d"},// the correct one is c
 			{_id:"595ff7747ee5420eacea75e1",answer:"b"}
 		]
@@ -195,7 +195,7 @@ chancellorApi.prototype.check = function(values,usercallback,token){
 
 //Add a new user
 chancellorApi.prototype.newUser = function(options,usercallback,token){
-	this.__make_request(options,this.__routes.newUser,token);
+	this.__make_request(options,this.__routes.newUser,usercallback,token);
 }
 
 //Report a question/s for being bad... etc..

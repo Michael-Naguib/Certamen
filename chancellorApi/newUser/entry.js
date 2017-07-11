@@ -1,4 +1,8 @@
 "use strict";
+
+const _ = require("lodash");
+const waterfall = require("async/waterfall");
+const apiConfig = require("../apiConfig.js");
 //Modules:
 const req_recieve=require("../generate/recieve.js");
 const req_sanitize=require("./sanitize");

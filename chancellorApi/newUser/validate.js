@@ -6,11 +6,14 @@ mongoose.Promise = global.Promise;
 
 //schema + helpers
 const user_schema=require("../__general__/user_schema.js");
+user_schema.set("versionKey",false);
 const mkError = require("../generate/error_helper.js");
 
 //The model
 var user_model = mongoose.model("users",user_schema);
 
+//Modules:
+const _ = require("lodash");
 
 //this is unique for each type of route!!
 module.exports = function(data,callback){
@@ -24,16 +27,20 @@ module.exports = function(data,callback){
 
 		//Query the database to make sure it does not already exist
 		// find by username:
-		var query = _.pick(data,["username"]);
-		var result = user_model.find(query).cursor();
+		var _username= _.pick(data,["username"]);
+		var query = {username:_username.username}
+		//query
+		user_model.findOne(query,(err,found)=>{
+			if(err){
+				callback(mkError("error while testing if username taken :" + err));
+			}else if(found){
+				var taken_msg = `User ${_username} already Exists Pick another username`;//Orex was here
+				callback(mkError(taken_msg));
+			}else{
+				callback(null,data);
+			}
+		});
 
-		//Check
-		if(cursor.length >= 1){
-			throw "User already Exists Pick another username";
-		}
-
-		//isvalid
-		callback(null,data);
 	}catch(e){
 		//error
 		callback(mkError("Data not in proper format: " + e));

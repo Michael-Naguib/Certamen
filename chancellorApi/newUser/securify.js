@@ -7,7 +7,6 @@ const randomstring = require("randomstring");
 
 module.exports= function(user,callback){
     try{
-
         //setup data...
         var schema_like_user = {};
         schema_like_user.username = user.username;
@@ -21,8 +20,7 @@ module.exports= function(user,callback){
         var hashedPassword = SHA1.hex(pass_and_salt);
 
         //Store it in the object...
-        schema_like_user.hashedPassword = hashedPassword;
-
+        schema_like_user.passwordHash = hashedPassword;
         //pass the data
         callback(null,schema_like_user);
     }catch(e){
