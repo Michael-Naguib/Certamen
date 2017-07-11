@@ -94,8 +94,8 @@ try{
 	app.use(bodyParser.json(jsonConfig));
 	
 	//======== Generate Route for the chancellorApi.generate();
-	var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
-	app.use(chancellorApi.path,Cauth,chancellorApi.router);
+	//var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
+	app.use(chancellorApi.path,chancellorApi.router);
 
 	//======== Staticly Serve anything else:
 	app.use(express.static(path.join(__dirname, serverConfig.root)));

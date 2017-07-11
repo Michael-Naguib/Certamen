@@ -21,6 +21,7 @@ const routes = {
 	removeRoute:'/remove/',
 	modifyRoute:'/modify/',
 	queryRoute:'/query/',
+	unauthorized:'/unauthorized'
 };
 settings["routes"] = routes;
 
