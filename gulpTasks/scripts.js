@@ -37,3 +37,41 @@ gulp.task("scripts",function(){
     .pipe(named())
     .pipe(webpackStream(webpackConfig,webpack))
 });
+
+//OLD CODE--> reimplement in above workflow
+gulp.task("scripts",function(){
+    //scripts task settings
+    const scriptssettings = {
+        jsxin:"",
+        jsin:"",
+        jsout:"",
+        concatname:"concat.js",
+        dirname:"./",
+        basename:"index",
+        suffix:".min",
+        extname:".js"
+    }
+
+    //set up the two sources and convert
+    var jsx = gulp.src(scriptssettings.jsxin).pipe(react().on("error",function(){console.log("[React Encountered an Error: Check Syntax!]")}));
+    var js = gulp.src(scriptssettings.jsin);
+
+    //Merge the sources
+    var alljs = merge2(js,jsx);
+
+    /* Process the files
+        -put all the files as 1 js file
+        -minify
+        -rename
+        -specify destination
+    */
+    return alljs.pipe(concat(scriptssettings.concatname))
+                .pipe(jsmin())
+                .pipe(rename({
+                    dirname:scriptssettings.dirname,
+                    basename:scriptssettings.basename,
+                    suffix:scriptssettings.suffix,
+                    extname:scriptssettings.extname
+                 }))
+                .pipe(gulp.dest(scriptssettings.jsout));
+});
