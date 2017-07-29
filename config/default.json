@@ -1,6 +1,7 @@
 {
 	"server":{
 		"root":"/www",
+		"index":"markup/index.min.html",
 		"port":8086
 	},
 	"session":{

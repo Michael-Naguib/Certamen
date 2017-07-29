@@ -1,6 +1,6 @@
 "use strict";
 //Command line args
-var commander = require("commander");
+var program = require("commander");
 
 //Use configuration
 const config = require('config');
@@ -43,31 +43,32 @@ const chancellorApi = require("./chancellorApi/chancellorApi-server.js");
 const mkError = require("./chancellorApi/generate/error_helper.js");//Really usefull...
 
 /*
-**			A few notes about the code:
-**			+ Be sure to set settings for Production and Devlopment Environments
-**			+ If you are wordering why some settings in the default or production .json files are
-**			  not working that may be because since they are read only _.pick() lodash was used... filters
-**			  to make a new writale object
+**		# A few notes about the code:
+**		+ Be sure to set settings for Production and Devlopment Environments
+**		+ If you are wordering why some settings in the default or production .json files are
+**		  not working that may be because since they are read only _.pick() lodash was used... filters
+**		  to make a new writale object
 */
 
 //Command Line Arguments:
-/*
-commander.version("0.1.0")
-.option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications')
+//.option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications')
+program.version("0.1.0")
 .option('-p --port <n>','Specify a port for the server to run on, overrides server config ',parseInt)
-.option('-s --silent','Make all errors Silent')
-.option('-r --root [value]','The Root of the Server, relative to this script defaults to the server config')
+.option('-r --root [value]','Specify the root directory of the server relative to this script; defaults to the server config')
+.option('-i --index [value]','Specify the default served path for request to http://hostname:port/ ;defaults to server config')
+.option('-m --mongoprevent','This argument prevents the shared database connection from initializing, may cause errors for code that uses this!!')
 .parse(process.argv);
-*/
+
 //Main code
 try{
 
 	//======== Setup the app
 	var app = express();
 
+
 	//Specify Port:
-	if(commander.port){
-		app.set('port',commander.port);
+	if(program.port){
+		app.set('port',program.port);
 	}else{
 		app.set('port', serverConfig.port);
 	}
@@ -82,12 +83,16 @@ try{
 		mongoUrl += `${mongoConfig.user}:${mongoConfig.pass}@`;
 	}
 	mongoUrl += `${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.db}`;
-	mongoose.connect(mongoUrl,{useMongoClient:true});//globaly shared connection
+	if(!program.mongoprevent){// cmd line arg when enabled prevents setting up connetion
+		mongoose.connect(mongoUrl,{useMongoClient:true});//globaly shared connection
+	}
+
 
 	//======== Setup Passport
 	passport.use(myStrategy.useMe);
 	passport.deserializeUser(myStrategy.deserialize);
 	passport.serializeUser(myStrategy.serialize);
+
 
 	//======== Setup Session:
 	var sessionConfig = config.get("session");
@@ -97,17 +102,21 @@ try{
 	sessionConfig.store = new MongoStore({ mongooseConnection: mongoose.connection });
 	app.use(session(sessionConfig));
 
+
 	//Authenticate/Prep on session
 	app.use(passport.initialize());
 	app.use(passport.session());
 
+
 	//======== For security purposes: prevent vulenerabilities exploits
 	app.use(helmet());
+
 
 	//======== Parse only JSON Requests
 	var jsonConfig = config.get("jsonParse");
 	var jsonConfig = _.pick(jsonConfig,["type"]);
 	app.use(bodyParser.json(jsonConfig));
+
 
 	//======== Generate Route for the chancellorApi.generate();
 	//var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
@@ -116,11 +125,26 @@ try{
 
 	//Configure the directory to serve:
 	var serveThisAsRoot =serverConfig.root;//default
-	if(commander.root){//command line option
-		serveThisAsRoot = commander.root;
+	if(program.root){//command line option
+		serveThisAsRoot = program.root;
 	}
+
+
+	//======== Serve the root Default Document:
+	app.get('/', function(req, res){
+		//Use commandline arg if provided else default to the the settings located in ./config/default.json
+		if(program.index){
+			res.sendFile(program.index, { root: path.join(__dirname, serveThisAsRoot) } );
+		}else{
+			res.sendFile(serverConfig.index, { root: path.join(__dirname, serveThisAsRoot) } );
+		}
+
+	});
+
+
 	//======== Staticly Serve anything else:
 	app.use(express.static(path.join(__dirname, serveThisAsRoot)));
+
 
 	//======== Listen for requests
 	var Server = app.listen(app.get('port'),()=>{
@@ -131,10 +155,19 @@ try{
 		//Server Listening Message
 		let serverStartMsg = `[${serverType} Server] listening on port ${port} hosting ${serveThisAsRoot}`;
 		console.log(chalk.magenta(serverStartMsg));
-		//Notify the details of the mongo Connection to the server log... (WARN: includes user password in mongoUrl)
-		let mongoConStartMsg = `[${serverType} Server] shared mongo conection on ${mongoUrl}`;
-		console.log(chalk.green(mongoConStartMsg));
+
+		//if arg is enabled then no connection was set up...
+		if(!program.mongoprevent){
+			//Notify the details of the mongo Connection to the server log... (WARN: includes user password in mongoUrl)
+			let mongoConStartMsg = `[${serverType} Server] shared mongo conection on ${mongoUrl}`;
+			console.log(chalk.green(mongoConStartMsg));
+		}else{
+			var mongoConWarning = "[Warning] Command line arg -m --mongoprevent was given to the server, no globally shared connection was made!!!!";
+			console.log(chalk.yellow(mongoConWarning));
+		}
 	});
+
+
 }catch(e){
 	//process.env.NODE_ENV === "devlopment"
 	if(true){
