@@ -12,12 +12,12 @@ var coffee = require('gulp-coffee');
 var gutil = require('gulp-util');
 var gulpPath = require('gulp-path');
 
-
 //Add in the modularized dependancies:
 const requiredir = require("requiredir");
 var requires = requiredir("./gulpTasks");
+
 /*
-    # design goals
+    # Design Goals
     + jade/pug main and minify html
     + compile and minify and concat js with webpack & bundle
     + compile and merge and concat and prefix and minify/clean css
