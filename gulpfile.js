@@ -23,7 +23,7 @@ const merge2 = require('merge2');
 const rename = require("gulp-rename");
 const fs = require('fs');
 
-//CSS 
+//CSS
 const cleancss = require('gulp-clean-css'); // dont forget to install this
 const autoprefixer = require('gulp-autoprefixer');
 const sass = require('gulp-sass');
@@ -44,15 +44,15 @@ design goals
         jade main and minify html
         compile and minify and concat js
         compile and merge and concat and prefix and minify/clean css
-        
+
         do not forget it is possible to merge streams...
-        
+
         friendly reminder for fps
-        
+
         ./ current dir then folder under
         ../parent up 1 dir stackable
         ./subdir/  in the subdir assumed in current dir.....
-        
+
         return merge2(stream1,stream2)
 */
 
@@ -67,17 +67,17 @@ gulp.task("stylesheets",function(){
         basename:"index",
         suffix:".min",
         extname:".css"
-        
+
     }
-    
+
     //Set up the two sources and convert
     var sass = gulp.src(stylesheetsettings.sassin).pipe(sass.sync().on('error', sass.logError));
     var css =  gulp.src(stylesheetsettings.cssin);
-    
+
     //Merge the sources
     var allcss = merge2(sass,css);
-    
-    /* Process the files 
+
+    /* Process the files
         -put all the files as 1 css file
         -add in browser fixes for all browsers
         -minify::'clean'
@@ -94,7 +94,7 @@ gulp.task("stylesheets",function(){
                     extname:stylesheetsettings.extname
                  }))
                  .pipe(gulp.dest(stylesheetsettings.cssout));
-     
+
 });
 
 gulp.task("scripts",function(){
@@ -109,15 +109,15 @@ gulp.task("scripts",function(){
         suffix:".min",
         extname:".js"
     }
-    
+
     //set up the two sources and convert
     var jsx = gulp.src(scriptssettings.jsxin).pipe(react().on("error",function(){console.log("[React Encountered an Error: Check Syntax!]")}));
     var js = gulp.src(scriptssettings.jsin);
-    
+
     //Merge the sources
     var alljs = merge2(js,jsx);
-    
-    /* Process the files 
+
+    /* Process the files
         -put all the files as 1 js file
         -minify
         -rename
@@ -145,27 +145,24 @@ gulp.task("markup",function(){
         suffix:".min",
         extname:".html"
     }
-    
+
     // Get the data that will be compiled into the jade files... consider a db in the future
     const jadelocals = JSON.parse(fs.readFileSync(markupsettings.jadelocals, 'utf8'));
-    
+
     //manage compiling jade locals minifying and returning
     var jade = gulp.src(markupsettings.jadein)
                    .pipe(jade({locals:jadelocals}))
                    .pipe(htmlmin({collapseWhitespace: true}))
                    .pipe(gulp.dest(markupsettings.htmlout));
-    
+
     //manage html minifying and returning
     var html = gulp.src(markupsettings.htmlin)
                    .pipe(htmlmin({collapseWhitespace: true}))
                    .pipe(gulp.dest(markupsettings.htmlout));
-    
+
     //Merge and return
     return merge2(jade,html);
 });
-
-
-
 
 
 
@@ -198,7 +195,7 @@ const settings = {
     copyOutDir:"./www"
 };
 
- 
+
 /*
 //Convert Sass(.scss) and Minify
 gulp.task("sass",function(){
@@ -241,16 +238,16 @@ gulp.task("copy",function(){
 gulp.task("default",function(){
     //watch sass
     gulp.watch(settings.sassInDir,["sass"]);
-    
+
     //watch jsx
     gulp.watch(settings.jsxInDir,["jsx"]);
-    
+
     // watch html
     gulp.watch(settings.minhtmlInDir,["minhtml"]);
-    
-    //watch Images ~~~ may be resource intensive ... 
+
+    //watch Images ~~~ may be resource intensive ...
     gulp.watch(settings.imageInDir,["optimizeimages"]);
-    
+
     //Copy all other assets files over....
     gulp.watch(settings.copyInDir,["copy"]);
 });

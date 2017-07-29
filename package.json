@@ -5,10 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "gulp",
-    "server": "node devserver.js 8081",
+    "build": "gulp",
+    "server": "echo 'Do not foret to start the database first!!!' && cd .\\ && nodemon server.js -dev",
     "setup": "npm install",
-    "chancellorApi": "concurrently 'mongod' 'startLate.bat' "
+    "startdb": "mongod"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 "use strict";
-//Command Manager ~not being used currently... 
-//const commander = require("commander");
+//Command line args
+var commander = require("commander");
 
 //Use configuration
 const config = require('config');
@@ -35,7 +35,7 @@ const chalk = require("chalk");
 //Express Framework
 const express = require("express");
 
-//Helps to prevent security vulnerabilities 
+//Helps to prevent security vulnerabilities
 const helmet = require('helmet');
 
 //Chancellor API
@@ -44,19 +44,33 @@ const mkError = require("./chancellorApi/generate/error_helper.js");//Really use
 
 /*
 **			A few notes about the code:
-**			+ Be sure to set settings for Production and Devlopment Environments 
+**			+ Be sure to set settings for Production and Devlopment Environments
 **			+ If you are wordering why some settings in the default or production .json files are
 **			  not working that may be because since they are read only _.pick() lodash was used... filters
 **			  to make a new writale object
 */
 
+//Command Line Arguments:
+commander.version("0.1.0")
+.option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications')
+.option('-p --port <n>','Specify a port for the server to run on, overrides server config ',parseInt)
+.option('-s --silent','Make all errors Silent')
+.parse(process.argv);
+
 //Main code
 try{
-	
+
 	//======== Setup the app
 	var app = express();
-	app.set('port', serverConfig.port);
-	
+
+	//Specify Port:
+	if(commander.port){
+		app.set('port',commander.port);
+	}else{
+		app.set('port', serverConfig.port);
+	}
+
+
 	//======== Setup SHARED(~efficient~) Mongo DB connection
 	var mongoConfig = config.get("mongodb");
 	//config object is not writable... make a copy that is writable....
@@ -67,12 +81,12 @@ try{
 	}
 	mongoUrl += `${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.db}`;
 	mongoose.connect(mongoUrl,{useMongoClient:true});//globaly shared connection
-	
+
 	//======== Setup Passport
 	passport.use(myStrategy.useMe);
 	passport.deserializeUser(myStrategy.deserialize);
 	passport.serializeUser(myStrategy.serialize);
-	
+
 	//======== Setup Session:
 	var sessionConfig = config.get("session");
 	//config object is not writable... make a copy that is writable....
@@ -80,19 +94,19 @@ try{
 	//TO FUTURE SELF: this may cause an error querying?
 	sessionConfig.store = new MongoStore({ mongooseConnection: mongoose.connection });
 	app.use(session(sessionConfig));
-	
+
 	//Authenticate/Prep on session
 	app.use(passport.initialize());
 	app.use(passport.session());
 
 	//======== For security purposes: prevent vulenerabilities exploits
 	app.use(helmet());
-	
+
 	//======== Parse only JSON Requests
 	var jsonConfig = config.get("jsonParse");
 	var jsonConfig = _.pick(jsonConfig,["type"]);
 	app.use(bodyParser.json(jsonConfig));
-	
+
 	//======== Generate Route for the chancellorApi.generate();
 	//var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
 	app.use(chancellorApi.path,chancellorApi.router);
@@ -105,7 +119,7 @@ try{
 		//Extract some server info...
 		let port = Server.address().port;
 		let serverType = process.env.NODE_ENV || "default"; // Dev ? Prod
-		
+
 		//Server Listening Message
 		let serverStartMsg = `[${serverType} Server] listening on port ${port} hosting ${serverConfig.root}`;
 		console.log(chalk.magenta(serverStartMsg));
@@ -113,7 +127,7 @@ try{
 		let mongoConStartMsg = `[${serverType} Server] shared mongo conection on ${mongoUrl}`;
 		console.log(chalk.green(mongoConStartMsg));
 	});
-}catch(e){	
+}catch(e){
 	//process.env.NODE_ENV === "devlopment"
 	if(true){
 		throw e; // FAIL Catestrophically in devlopment
