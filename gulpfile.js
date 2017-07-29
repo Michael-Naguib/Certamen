@@ -39,21 +39,12 @@ var gutil = require('gulp-util');
 var gulpPath = require('gulp-path');//install...
 
 /*
-design goals
+    # design goals
+    + jade/pug main and minify html
+    + compile and minify and concat js with webpack & bundle
+    + compile and merge and concat and prefix and minify/clean css
+    + generate hashes of resources and use as SRI hash in any html/markup
 
-        jade main and minify html
-        compile and minify and concat js
-        compile and merge and concat and prefix and minify/clean css
-
-        do not forget it is possible to merge streams...
-
-        friendly reminder for fps
-
-        ./ current dir then folder under
-        ../parent up 1 dir stackable
-        ./subdir/  in the subdir assumed in current dir.....
-
-        return merge2(stream1,stream2)
 */
 
 gulp.task("stylesheets",function(){
