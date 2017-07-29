@@ -51,12 +51,14 @@ const mkError = require("./chancellorApi/generate/error_helper.js");//Really use
 */
 
 //Command Line Arguments:
+/*
 commander.version("0.1.0")
 .option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications')
 .option('-p --port <n>','Specify a port for the server to run on, overrides server config ',parseInt)
 .option('-s --silent','Make all errors Silent')
+.option('-r --root [value]','The Root of the Server, relative to this script defaults to the server config')
 .parse(process.argv);
-
+*/
 //Main code
 try{
 
@@ -111,8 +113,14 @@ try{
 	//var Cauth = passport.authenticate('local', { failureRedirect: '/' });//,Cauth
 	app.use(chancellorApi.path,chancellorApi.router);
 
+
+	//Configure the directory to serve:
+	var serveThisAsRoot =serverConfig.root;//default
+	if(commander.root){//command line option
+		serveThisAsRoot = commander.root;
+	}
 	//======== Staticly Serve anything else:
-	app.use(express.static(path.join(__dirname, serverConfig.root)));
+	app.use(express.static(path.join(__dirname, serveThisAsRoot)));
 
 	//======== Listen for requests
 	var Server = app.listen(app.get('port'),()=>{
@@ -121,7 +129,7 @@ try{
 		let serverType = process.env.NODE_ENV || "default"; // Dev ? Prod
 
 		//Server Listening Message
-		let serverStartMsg = `[${serverType} Server] listening on port ${port} hosting ${serverConfig.root}`;
+		let serverStartMsg = `[${serverType} Server] listening on port ${port} hosting ${serveThisAsRoot}`;
 		console.log(chalk.magenta(serverStartMsg));
 		//Notify the details of the mongo Connection to the server log... (WARN: includes user password in mongoUrl)
 		let mongoConStartMsg = `[${serverType} Server] shared mongo conection on ${mongoUrl}`;
