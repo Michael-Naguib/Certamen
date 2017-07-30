@@ -1,28 +1,22 @@
 "use strict";
 const chalk = require("chalk");
 var sendmail = require("sendmail")({silent:true});
-
 var apiConfig = require("../apiConfig.js");
 var dateFormat = require('dateformat');
+const Slack = require('node-slack');
 
-//OLD
-/*
-module.exports = function(message,stopjsonify){
-	var finishedMessage = "[chancellorApi-server] " + message
-	console.log("[chancellorApi-server] ERR : " + message);
-	if(!stopjsonify){
-		return JSON.stringify({error: finishedMessage});
-	}
-	
-	return finishedMessage;
-}
+//Slack-Bot error messaging:
+const hook_url = null ;
+/* Bad practice, please don't hack/abuse this --> check slack msg if you are on the team
+ the webhook is there for use...
 */
-//Proposed new error handler
+var slack = new Slack(hook_url);
 
+//Main Code
 module.exports = function (message,_options){
 	/*
 		message: what you want to be said
-	
+
 		var options = {
 			fatal: bool default false,
 			notifyAdmins: bool default false unless fatal,
@@ -39,11 +33,11 @@ module.exports = function (message,_options){
 	options.returnAsText = options.returnAsText || false;
 	options.location = options.location || false;
 	options.timestamp = options.timestamp || true;
-	
+
 	//Text
 	var errorText =chalk.green("[chancellorApi-server] ");
 	var __no_color_text = "[chancellorApi-server] ";
-	
+
 	//Timestamp
 	if(options.timestamp){
 		var t_now = new Date();
@@ -51,13 +45,13 @@ module.exports = function (message,_options){
 		errorText = errorText + t_stamp;
 		__no_color_text = __no_color_text + t_stamp;
 	}
-	
+
 	//Location
 	if(options.location){
 		errorText = errorText + " At "+options.location + " ";
 		__no_color_text = __no_color_text+ " At "+options.location + " ";
 	}
-	
+
 	//Add the user's message
 	if(options.fatal){
 		errorText = errorText + " " + chalk.red(message);
@@ -67,9 +61,9 @@ module.exports = function (message,_options){
 		errorText = errorText + " " + chalk.yellow(message);
 		__no_color_text = __no_color_text + " " + message;
 	}
-	
-	
-	//notify with msg
+
+
+	//Notify Admins via email
 	function notifyAdminsEmail(msg,callback){
 		try{
 			//Concat email strings
@@ -98,27 +92,52 @@ module.exports = function (message,_options){
 			callback(e);
 		}
 
-		
-		
+
+
 	}
-	
+
+	//Notify Admins via Slack
+	function notifyAdminsSlack(msg,callback){
+		try{
+			slack.send({
+				text: msg,
+				channel: '#chancellorjcl',
+				username: 'chancellorApiServer'
+			});
+			callback(null,true);
+		}catch(e){
+			callback(e,null)
+		}
+
+	}
+
 	//If fatal
 	if(options.fatal || options.notifyAdmins){
+
+		//Send email
 		notifyAdminsEmail(__no_color_text,(err)=>{
 			if(err){
 				console.log(chalk.red("[chancellorApi-server] UNABLE TO SEND EMAIL TO ADMIN"+ err));
 			}
 		});
+
+		//send slack
+		notifyAdminsSlack(__no_color_text,(err)=>{
+			if(err){
+				console.log(chalk.red("[chancellorApi-server] UNABLE TO SEND SLACK MSG TO ADMIN"+ err));
+			}
+
+		});
 	}
-	
+
 	//Log it to server console
 	console.log(errorText);
-	
+
 	//returned so it can be passed to user
 	if(options.returnAsText){
 		return errorText;
 	}else{
 		return JSON.stringify({error: __no_color_text});
 	}
-	
+
 }

@@ -51,8 +51,9 @@ const mkError = require("./chancellorApi/generate/error_helper.js");//Really use
 */
 
 //Command Line Arguments:
-//.option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications')
+
 program.version("0.1.0")
+.option('-d --dev','Runs the server in dev mode, defaults production, verbose in notifications, will fail Catestrophically instead of handeling errs')
 .option('-p --port <n>','Specify a port for the server to run on, overrides server config ',parseInt)
 .option('-r --root [value]','Specify the root directory of the server relative to this script; defaults to the server config')
 .option('-i --index [value]','Specify the default served path for request to http://hostname:port/ ;defaults to server config')
@@ -145,7 +146,6 @@ try{
 	//======== Staticly Serve anything else:
 	app.use(express.static(path.join(__dirname, serveThisAsRoot)));
 
-
 	//======== Listen for requests
 	var Server = app.listen(app.get('port'),()=>{
 		//Extract some server info...
@@ -169,8 +169,8 @@ try{
 
 
 }catch(e){
-	//process.env.NODE_ENV === "devlopment"
-	if(true){
+	//process.env.NODE_ENV === "devlopment" ... currently using cmd line config
+	if(program.dev){
 		throw e; // FAIL Catestrophically in devlopment
 	}else{
 		// FAIL Gracefully(ie. server not crash & email to Admin) in production
