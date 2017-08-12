@@ -76,6 +76,7 @@
     "passport-local": "^1.0.0",
     "passport-localapikey": "0.0.3",
     "password-hash": "^1.2.2",
+    "php-express": "0.0.3",
     "randomstring": "^1.1.5",
     "requiredir": "^1.0.7",
     "sanitize": "^2.0.1",

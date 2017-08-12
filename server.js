@@ -42,6 +42,14 @@ const helmet = require('helmet');
 const chancellorApi = require("./chancellorApi/chancellorApi-server.js");
 const mkError = require("./chancellorApi/generate/error_helper.js");//Really usefull...
 
+//Php Integration
+var phpExpress = require('php-express')({
+
+  // assumes php is in your PATH
+  binPath: serverConfig.phpBin
+});
+
+
 /*
 **		# A few notes about the code:
 **		+ Be sure to set settings for Production and Devlopment Environments
@@ -57,17 +65,24 @@ program.version("0.1.0")
 .option('-p --port <n>','Specify a port for the server to run on, overrides server config ',parseInt)
 .option('-r --root [value]','Specify the root directory of the server relative to this script; defaults to the server config')
 .option('-i --index [value]','Specify the default served path for request to http://hostname:port/ ;defaults to server config')
-.option('-m --mongoprevent','This argument prevents the shared database connection from initializing, may cause errors for code that uses this!!')
+.option('-m --mongoprevent','Prevents the shared database connection from initializing, may cause errors for code that uses this!!')
+.option('-a --phpprevent','Stops the parsing of php files as dynamic documents and serves them statically')
+.option('-t --testfatal','Runs a test as a fatal admin notifing error')
 .parse(process.argv);
 
 //Main code
 try{
 
+	//======== Test the admin notifying system
+	if(program.testfatal){
+		mkError("-t --testfatal arg was called: this is a simulated error",{fatal:true});
+	}
+
 	//======== Setup the app
 	var app = express();
 
 
-	//Specify Port:
+	//======== Specify Port:
 	if(program.port){
 		app.set('port',program.port);
 	}else{
@@ -104,7 +119,7 @@ try{
 	app.use(session(sessionConfig));
 
 
-	//Authenticate/Prep on session
+	//======== Authenticate/Prep on session
 	app.use(passport.initialize());
 	app.use(passport.session());
 
@@ -131,6 +146,15 @@ try{
 	}
 
 
+	//======== Php Routing and templating engine
+	if(!program.phpprevent){
+		app.set('views', path.join(__dirname, serveThisAsRoot));
+		app.engine('php', phpExpress.engine);
+		app.set('view engine', 'php');
+		app.all(/.+\.php$/, phpExpress.router);//get all php files! --> overrides static serving
+	}
+
+
 	//======== Serve the root Default Document:
 	app.get('/', function(req, res){
 		//Use commandline arg if provided else default to the the settings located in ./config/default.json
@@ -145,6 +169,7 @@ try{
 
 	//======== Staticly Serve anything else:
 	app.use(express.static(path.join(__dirname, serveThisAsRoot)));
+
 
 	//======== Listen for requests
 	var Server = app.listen(app.get('port'),()=>{
