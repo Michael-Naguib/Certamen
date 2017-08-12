@@ -24,3 +24,8 @@ var requires = requiredir("./gulpTasks");
     + generate hashes of resources and use as SRI hash in any html/markup
 
 */
+
+
+gulp.task('default',()=>{
+    gulp.watch('./dev',['stylesheets','markup'])
+});

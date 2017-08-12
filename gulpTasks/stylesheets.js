@@ -19,12 +19,10 @@ const fs = require('fs');
 gulp.task("stylesheets",function(){
     //Stylesheets task settings
     const stylesheetsettings = {
-        sassin:"",
-        cssin:"",
-        cssout:"",
+        sassin:"../dev/stylesheets/*.scss",
+        cssin:"../dev/stylesheets/*.css",
+        cssout:"../www/stylesheets/",
         concatname:"concat.css",
-        dirname:"./",
-        basename:"index",
         suffix:".min",
         extname:".css"
 
@@ -48,8 +46,6 @@ gulp.task("stylesheets",function(){
                  .pipe(autoprefixer({browsers:["last 2 versions"],cascade:false}))
                  .pipe(cleancss())
                  .pipe(rename({
-                    dirname:stylesheetsettings.dirname,
-                    basename:stylesheetsettings.basename,
                     suffix:stylesheetsettings.suffix,
                     extname:stylesheetsettings.extname
                  }))
