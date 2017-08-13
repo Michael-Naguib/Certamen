@@ -44,6 +44,37 @@
 * This webhook string can be obtained by contacting me: or by checking slack team messaging history
 * To set this goto ```./chancellorApi/generate/errro_helper.js ``` line 9 variable hook_url and set that to the hook text
 
+### ./chancellorApi/generate/error_helper.js in Depth:
+* This is an error notification module
+* What it does: asigns who made the err, colors the text, notify admins
+* usage is as follows:
+* You may pass a optional 2nd argument to configure the options of the error making process
+```
+var options = {
+    fatal: bool default false,
+    notifyAdmins: bool default false unless fatal,
+    returnAsText: bool defaults false --> returns json,
+    location: string --> any clue as to where the error is from... will be added onto message,
+    timestamp: bool defaults true
+};
+```
+* Usage:
+```const mkError=require("modulepathhere");
+    try{
+        // bad code that errors
+        throw "I am a Bug";
+    }catch(err){
+        //Is passed as an optional argument: see options full explanation above
+        var options = {fatal:true}
+
+        //Modify the error msg
+        errorText= mkError(err,options); //Notifications sent, text formatted etc...
+
+        // Log it
+        console.log(errText);
+
+    }
+```
 ## Gulp Processing
 * (NOT WORKING) currently the gulp automation code is being overhauled
 * This will build & optimize all the files in ./dev and move them into ./www
