@@ -19,3 +19,16 @@ const image = require("gulp-image");
     + Preform specific optimizations on specific files/types
     + Hashes?
 */
+
+
+gulp.task('assets',function(){
+    //settings
+    const assetssettings = {
+        assetsin:"../dev/assets/*.*",
+        assetsout:"../www/assets/"
+    };
+
+    // Copy all assets in ./dev/assets
+    return gulp.src(assetssettings.assetsin)
+    .pipe(gulp.dest(assetssettings.assetsout));
+});

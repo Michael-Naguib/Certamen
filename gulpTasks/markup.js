@@ -30,17 +30,17 @@ gulp.task("markup",function(){
     }
 
     // Get the data that will be compiled into the jade files... consider a db in the future
-    const hashes = JSON.parse(fs.readFileSync("path", 'utf8'));
+    //const hashes = JSON.parse(fs.readFileSync("path", 'utf8')); {locals:hashes}
 
     //manage compiling jade locals minifying and returning
-    var jade = gulp.src(markupsettings.jadein)
-                   .pipe(jade({locals:hashes}));
+    var jadefiles = gulp.src(markupsettings.jadein)
+                   .pipe(jade());
 
     //manage html minifying and returning
     var html = gulp.src(markupsettings.htmlin);
 
     //Merge and return
-    var mergedHtml =merge2(jade,html);
+    var mergedHtml =merge2(jadefiles,html);
 
     //Return
     return mergedHtml.pipe(htmlmin({collapseWhitespace: true}))
