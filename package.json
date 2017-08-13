@@ -81,6 +81,7 @@
     "requiredir": "^1.0.7",
     "sanitize": "^2.0.1",
     "sass-loader": "^6.0.6",
+    "sendmail": "^1.2.0",
     "style-loader": "^0.18.2",
     "typescript": "^2.4.2",
     "validator": "^7.2.0",
