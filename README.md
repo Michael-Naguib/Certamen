@@ -1,30 +1,97 @@
-# Certamen 
-A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link may change) that will be a work in progress
+# Certamen
+* A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link may change) that will be a work in progress
 
-## Environment Requirements:
-* Node Js
-* Dependancies (see package.json)
-* Run the command ```npm run setup ``` in terminal to install the dependancies 
+## Quick & Easy TL;DR;
+* ```npm install```
+* ```npm install -g nodemon gulp gulp-cli express```
+* ```nodemon server.js -m -a --dev -p 8080```
+
+## Need Help?
+* For help with the command line arguments do ```node server.js -h```
+* Slack or G+hangouts msg me
+* Read the docs below:
 
 ## Devlopment tips
-* Running ``` npm run server ``` in terminal starts a local server at http://localhost:8081
-* An index.php file in "www" redirects to markup/index.min.html. 
-* "www" is treated as the root directory. 
-* DO NOT FORGET to run ```gulp``` in terminal before you start work on the project... it will update the www which the server hosts!
+* For starting the server use ```nodemon server.js -m -a --dev -p 8080``` (If a port is not specified it will use port 8086)
+* The server will log Info to the console detailing the hosted dir,port, and db connection status
+* Config for the server and other mongo-authentication stuff is in ```./config/default.json ``` (currently production.json is obselete)
 
-## Working with links
-* Relative links will need a lot of work if they are going to work withine wordpress as shortcode... see comments in shortcode.php
-* All Production scripts,assets,etc... will be made avilable via the folder "www"
+### Mongo database
+* Connection config can be found in ```./config/default.json ```
+* Running the server with the -m arg will prevent a connection from being made to the database: (usefull if you dont have a database)
 
-## Directory Structure
+### php
+* The server will be made to process php files.
+* Currently php files may raise errors until a php  install is added into ./php
+* The -a arg for server.js prevents php parsing!!!! will be served statically
+
+### Directory Structure
 * All jsx,scss,png,jpeg,gif,svg files will be made avilable via the followining directories for production names
-1. www/assets        For .png .jpeg .gif .svg and (anything else) -> implementation needs testing!!!!!
+1. www/assets        For .png .jpeg .gif .svg and anything else
 2. www/javascript    For .js .min.js
 3. www/stylesheets   For .css .min.css
-4. www/markup        For .html .min.html 
-* The Gulpfile is configured to fit all files from /dev into these categories. 
-* The other files their respective directory according to the guide above
-* Please feel free to improve the gulp configuration :)
+4. www/markup        For .html .min.html
+5. www/php           For .php .min.php
+
+## Server Notifications:
+* ./chancellorApi/generate/error_helper.js is a script designed to handle errors!
+* It has the ability to email admins & post to the slack channel 'chancellorjcl' when a fatal error is detected
+* Emails will be sent to the addresses listed in ```./config/default.json ```
+
+### Slack
+* SLACK will NOT work without setting the webhook! This is a sensative piece of text so it is not included in the repo (do not push it to the repo!!)
+* This webhook string can be obtained by contacting me: or by checking slack team messaging history
+* To set this goto ```./chancellorApi/generate/errro_helper.js ``` line 9 variable hook_url and set that to the hook text
+
+### ./chancellorApi/generate/error_helper.js in Depth:
+* This is an error notification module
+* What it does: asigns who made the err, colors the text, notify admins
+* usage is as follows:
+* You may pass a optional 2nd argument to configure the options of the error making process
+```
+var options = {
+    fatal: bool default false,
+    notifyAdmins: bool default false unless fatal,
+    returnAsText: bool defaults false --> returns json,
+    location: string --> any clue as to where the error is from... will be added onto message,
+    timestamp: bool defaults true
+};
+```
+* Usage:
+```const mkError=require("modulepathhere");
+    try{
+        // bad code that errors
+        throw "I am a Bug";
+    }catch(err){
+        //Is passed as an optional argument: see options full explanation above
+        var options = {fatal:true}
+
+        //Modify the error msg
+        errorText= mkError(err,options); //Notifications sent, text formatted etc...
+
+        // Log it
+        console.log(errText);
+
+    }
+```
+## Gulp Processing
+* (NOT WORKING) currently the gulp automation code is being overhauled
+* This will build & optimize all the files in ./dev and move them into ./www
+* Some files will be renamed... for example index.html --> index.min.html index.js --> index.min.js
+* All Sass Files will be transpiled: index.sass --> index.min.css
+* JSX files will be bundled with webpack: index.jsx --> index.bun.min.js
+* If you do not want gulp to modify the file in any way you can place it in the ./dev/assets and it will be coppied into ./www/assets
+* The server by default hosts ./www as root
+
+### Mappings:
+* .scss .sass   --> .min.css
+* .js           --> .min.js
+* .jsx          --> .bun.min.js
+* .pug .html    --> .min.html
+* .php          --> .min.php or .php ?? handeling php may prove difficult in gulp
+* Anything else is served as is
+
+
 
 ## Site Admin Email
 * jcl.chancellors@gmail.com

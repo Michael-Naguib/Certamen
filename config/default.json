@@ -1,0 +1,32 @@
+{
+	"server":{
+		"root":"/www",
+		"index":"markup/index.min.html",
+		"port":8086,
+		"phpBin":"./php"
+	},
+	"session":{
+		"secret":"PF HliPOyqbnidevefweAnL",
+		"resave": false,
+		"saveUninitialized": true,
+		"cookie":{
+			"secure":true
+		},
+		"store":"WARNING!!! set this in node.. is a function... cant be stored in json config"
+	},
+	"mongodb":{
+		"host":"localhost",
+		"port":27017,
+		"db":"chancellorApi",
+		"user":null,
+		"pass":null
+	},
+	"jsonParse":{
+		"type":"application/json"
+	},
+	"googleAuth":{
+		"clientId":"",
+		"clientSecret":"",
+		"callbackUrl":""
+	}
+}
