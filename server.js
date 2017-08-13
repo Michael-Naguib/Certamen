@@ -116,12 +116,17 @@ try{
 	sessionConfig = _.pick(sessionConfig,["secret","resave","saveUninitialized","cookie","store"]);
 	//TO FUTURE SELF: this may cause an error querying?
 	sessionConfig.store = new MongoStore({ mongooseConnection: mongoose.connection });
-	app.use(session(sessionConfig));
+    if(!program.mongoprevent){
+        	app.use(session(sessionConfig));
+    }
+
 
 
 	//======== Authenticate/Prep on session
-	app.use(passport.initialize());
-	app.use(passport.session());
+    if(!program.mongoprevent){
+        app.use(passport.initialize());
+        app.use(passport.session());
+    }
 
 
 	//======== For security purposes: prevent vulenerabilities exploits

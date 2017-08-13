@@ -19,7 +19,6 @@
 ### Mongo database
 * Connection config can be found in ```./config/default.json ```
 * Running the server with the -m arg will prevent a connection from being made to the database: (usefull if you dont have a database)
-* Without the mongo server it may take longer for the page to load: 1-2min but with it it takes secconds
 
 ### php
 * The server will be made to process php files.
