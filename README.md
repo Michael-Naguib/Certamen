@@ -10,6 +10,10 @@ A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link ma
 * `nodemon server.js -m -a` Unless the php is done or you also host a mongo server on your pc this will prevent setting up a connection
 * Set the slack webhook in ./chancellorApi/general/error_helper.js .... do not push the text to the repo... get the hook from withine the slack msg made for this project
 
+## Environment setup
+* Although the package.json installs the deps locally a few deps are required globally:
+* The command is as follows `npm install -g nodemon gulp gulp-cli express`
+
 ## Environment Requirements:
 * Node Js
 * Dependancies (see package.json)
