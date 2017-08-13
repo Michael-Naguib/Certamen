@@ -121,7 +121,6 @@ try{
     }
 
 
-
 	//======== Authenticate/Prep on session
     if(!program.mongoprevent){
         app.use(passport.initialize());

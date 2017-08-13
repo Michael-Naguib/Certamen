@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const path = require("path");
 
 //Setup
-const extractCommons = new webpack.optimize.CommonChunkPlugin({
+const extractCommons = webpack.optimize.CommonChunkPlugin({
     name:"commons",
     filename:"commons.js"
 });
