@@ -5,20 +5,19 @@ const path = require("path");
 //Setup
 const extractCommons = new webpack.optimize.CommonsChunkPlugin({
     name:"commons",
-    filename:"commons.js"
+    filename:"commons.js",
+    minChunks:Infinity
 });
 
 //Settings and Easy Access
 module.exports = {
       entry:{
           vendors:['react','jquery'],
-          bundle: './dev/javascript/index.jsx',
+          index: './dev/scripts/index.jsx',
       },
       devtool: 'source-map',
       output: {
-          filename: '[name].min.js',
-          path: path.resolve(__dirname, './www/javascript'),
-          publicPath:'./'
+          filename: '[name].min.js'
       },
       module:{
           loaders:[
@@ -28,9 +27,5 @@ module.exports = {
       },
       plugins:[
           extractCommons,
-          new webpack.DllReferencePlugin({
-           context: path.join(__dirname, "/dev/javascript/vendors"),
-           manifest: require("./dll/vendor-manifest.json")
-       }),
       ]
 };

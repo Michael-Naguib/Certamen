@@ -27,5 +27,5 @@ var requires = requiredir("./gulpTasks");
 
 
 gulp.task('default',()=>{
-    return gulp.watch('./dev',['stylesheets','markup','assets','php'])
+    return gulp.watch('./dev/**/*.*',['scripts','stylesheets','markup','assets','php'])
 });

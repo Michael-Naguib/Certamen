@@ -22,9 +22,9 @@ const htmlhint = require("gulp-htmlhint");
 gulp.task("markup",function(){
     //markup task settings
     const markupsettings = {
-        jadein:"../dev/markup/*.{pug,jade}",
-        htmlin:"../dev/markup/*.html",
-        htmlout:"../www/markup/",
+        jadein:"./dev/markup/*.{pug,jade}",
+        htmlin:"./dev/markup/*.html",
+        htmlout:"./www/markup/",
         suffix:".min",
         extname:".html"
     }
@@ -38,7 +38,6 @@ gulp.task("markup",function(){
 
     //manage html minifying and returning
     var html = gulp.src(markupsettings.htmlin);
-
     //Merge and return
     var mergedHtml =merge2(jadefiles,html);
 

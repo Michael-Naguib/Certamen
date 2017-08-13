@@ -20,6 +20,6 @@ gulp.task('php',function(){
     };
 
     // Copy all php over
-    return gulp.src(phpsettings.assetsin)
-    .pipe(gulp.dest(phpsettings.assetsout));
+    return gulp.src(phpsettings.phpin)
+    .pipe(gulp.dest(phpsettings.phpout));
 });
