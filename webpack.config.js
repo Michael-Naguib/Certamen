@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const path = require("path");
 
 //Setup
-const extractCommons = webpack.optimize.CommonChunkPlugin({
+const extractCommons = new webpack.optimize.CommonsChunkPlugin({
     name:"commons",
     filename:"commons.js"
 });
@@ -16,7 +16,7 @@ module.exports = {
       },
       devtool: 'source-map',
       output: {
-          filename: '[name].bun.min.js',
+          filename: '[name].min.js',
           path: path.resolve(__dirname, './www/javascript'),
           publicPath:'./'
       },

@@ -11,6 +11,11 @@
 * Slack or G+hangouts msg me
 * Read the docs below:
 
+## What needs work done:
+* gulp: more specifically creating the dynamically linked libs for deps in webpack
+* Unifying all the sparse config options variables scatered throught files into ./config/default.json
+* Entry point config for scripts
+
 ## Devlopment tips
 * For starting the server use ```nodemon server.js -m -a --dev -p 8080``` (If a port is not specified it will use port 8086)
 * The server will log Info to the console detailing the hosted dir,port, and db connection status
