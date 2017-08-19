@@ -5,6 +5,7 @@
 * ```npm install```
 * ```npm install -g nodemon gulp gulp-cli express```
 * ```nodemon server.js -m -a --dev -p 8080```
+* ```gulp```
 
 ## Need Help?
 * For help with the command line arguments do ```node server.js -h```
