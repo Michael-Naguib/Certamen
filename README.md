@@ -2,10 +2,11 @@
 * A app for (latin -jeopardy) Certamen for the site chancellorjcl.noip.me (link may change) that will be a work in progress
 
 ## Quick & Easy TL;DR;
+* ```cd Certamen ```
 * ```npm install```
 * ```npm install -g nodemon gulp gulp-cli express```
 * ```nodemon server.js -m -a --dev -p 8080```
-* ```gulp```
+* In a new terminal in the same directory ```gulp```
 
 ## Need Help?
 * For help with the command line arguments do ```node server.js -h```
