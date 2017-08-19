@@ -17,10 +17,10 @@ class LeaderboardAside extends React.Component{
         $.ajax({url:this.state.genDataUrl, success: function(result){
             try{
                 this.setState({userData:Json.parse(result)});
-            }catch(var e){
+            }catch(e){
                 this.setState({retrievalErr: true});
             }
-            
+
         }, error: function(xhrr,statuss,errorr){
             this.setState({retrievalErr: true});
         }});
@@ -37,7 +37,7 @@ class Leaderboard extends React.Component{
     render(){
         return(<div id="leaderboard-container">
             <LeaderboardHeader></LeaderboardHeader>
-            
+
             </div>);
     }
 }

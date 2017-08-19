@@ -11,13 +11,9 @@ const extractCommons = new webpack.optimize.CommonsChunkPlugin({
 
 //Settings and Easy Access
 module.exports = {
-      entry:{
-          vendors:['react','jquery'],
-          index: './dev/scripts/index.jsx',
-      },
-      devtool: 'source-map',
+      entry:"THIS IS RESPECIFIED IN THE GULP TASK SCRIPTS.JS",
       output: {
-          filename: '[name].min.js'
+          filename: '[name].js'
       },
       module:{
           loaders:[
