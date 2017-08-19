@@ -96,7 +96,35 @@ var options = {
 * .php          --> .min.php or .php ?? handeling php may prove difficult in gulp
 * Anything else is served as is
 
-
+## Front End Devlopment
+* The backend has been set up by yours truely: Michael N. Aka Hedgehog... gulp has been configured very carefully...
+* When writing filepaths the ```./www``` is the root of the server!!!!!
+* The default gulp task watches for changes... if you are working on a certian folder subset running the specific gulp task for that folder may be faster
+* To start active watching and compile when save run ```gulp ```
+* This console will also output errors caught by linting or compilation or etc...
+* Only files listed in the subfolders below will show up in the ./www ....
+### Scripts ./dev/scripts/ Folder
+* Webpack will compile minifyto each file that is a direct child of this Directory
+* The files will be be given the extension .min  example: ``` hello.jsx --> hello.min.js ```
+* ( watch out for name conflicts like test.js & test.jsx which resolve to the same filetype .js when compiled)
+* Any file in ./dev/scripts/exclude will not be compiled by webpack as a entrypoint however can be used withine entrypoints
+* The output for these files is: ```./www/scripts/```
+* The specific sub gulp task for this folder is: ```gulp scripts ```
+### Assets ./dev/assets/ Folder & Php ./dev/php/ Folder
+* All Files in this directory will be coppied into ```./www/assets/ ``` and ```./www/php/ ``` respectivly and will not be modified in any way
+* The specific sub gulp task for this folder is: ```gulp assets ``` and ```gulp php ``` respectivly
+### Markup ./dev/markup/ Folder
+* .pug Files will be compiled, then all html is taken and minified and linted
+* All files will be given the .min extension in a similar manner files in scripts folder are given
+* The specific sub gulp task for this folder is: ```gulp markup ```
+### Stylesheets ./dev/stylesheets/ Folder
+* .sass and .scss are both transpiled into their .css counterparts
+* All files will be given the .min extension
+* linting, autoprefixing(To make dev for IE easier), and minification are implemented
+* Errors in syntax will be loged the command line
+* The specific sub gulp task for this folder is: ```gulp stylesheets ```
+### ./dev/buildStaging Folder
+* Do not touch this is needed for webpack... in the future it will be used to implement SubIntegrityHashes 'SRI' for most files
 
 ## Site Admin Email
 * jcl.chancellors@gmail.com
