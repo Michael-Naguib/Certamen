@@ -10,27 +10,27 @@
 * For help with the command line arguments do ```node server.js -h```
 * Slack or G+hangouts msg me
 * Read the docs below:
-
-## What needs work done:
+## Back End Devlopment
+### What needs work done:
 * gulp: more specifically creating the dynamically linked libs for deps in webpack
 * Unifying all the sparse config options variables scatered throught files into ./config/default.json
 * Entry point config for scripts
 
-## Devlopment tips
+### Devlopment tips
 * For starting the server use ```nodemon server.js -m -a --dev -p 8080``` (If a port is not specified it will use port 8086)
 * The server will log Info to the console detailing the hosted dir,port, and db connection status
 * Config for the server and other mongo-authentication stuff is in ```./config/default.json ``` (currently production.json is obselete)
 
-### Mongo database
+#### Mongo database
 * Connection config can be found in ```./config/default.json ```
 * Running the server with the -m arg will prevent a connection from being made to the database: (usefull if you dont have a database)
 
-### php
+#### php
 * The server will be made to process php files.
 * Currently php files may raise errors until a php  install is added into ./php
 * The -a arg for server.js prevents php parsing!!!! will be served statically
 
-### Directory Structure
+#### Directory Structure
 * All jsx,scss,png,jpeg,gif,svg files will be made avilable via the followining directories for production names
 1. www/assets        For .png .jpeg .gif .svg and anything else
 2. www/javascript    For .js .min.js
@@ -38,17 +38,17 @@
 4. www/markup        For .html .min.html
 5. www/php           For .php .min.php
 
-## Server Notifications:
+### Server Notifications:
 * ./chancellorApi/generate/error_helper.js is a script designed to handle errors!
 * It has the ability to email admins & post to the slack channel 'chancellorjcl' when a fatal error is detected
 * Emails will be sent to the addresses listed in ```./config/default.json ```
 
-### Slack
+#### Slack
 * SLACK will NOT work without setting the webhook! This is a sensative piece of text so it is not included in the repo (do not push it to the repo!!)
 * This webhook string can be obtained by contacting me: or by checking slack team messaging history
 * To set this goto ```./chancellorApi/generate/errro_helper.js ``` line 9 variable hook_url and set that to the hook text
 
-### ./chancellorApi/generate/error_helper.js in Depth:
+#### ./chancellorApi/generate/error_helper.js in Depth:
 * This is an error notification module
 * What it does: asigns who made the err, colors the text, notify admins
 * usage is as follows:
@@ -88,7 +88,7 @@ var options = {
 * If you do not want gulp to modify the file in any way you can place it in the ./dev/assets and it will be coppied into ./www/assets
 * The server by default hosts ./www as root
 
-### Mappings:
+#### Mappings:
 * .scss .sass   --> .min.css
 * .js           --> .min.js
 * .jsx          --> .bun.min.js
@@ -99,12 +99,13 @@ var options = {
 ## Front End Devlopment
 * The backend has been set up by yours truely: Michael N. Aka Hedgehog... gulp has been configured very carefully...
 * When writing filepaths the ```./www``` is the root of the server!!!!!
-* The default gulp task watches for changes... if you are working on a certian folder subset running the specific gulp task for that folder may be faster
+* The default gulp task watches for changes... if you are working on a certain folder subset running the specific gulp task for that folder may be faster
 * To start active watching and compile when save run ```gulp ```
 * This console will also output errors caught by linting or compilation or etc...
-* Only files listed in the subfolders below will show up in the ./www ....
+* Only files listed in the subfolders below will show up in the ./www
+* see the server docs above to set the root document of the server... the default is ./www/markup/index.min.html
 ### Scripts ./dev/scripts/ Folder
-* Webpack will compile minifyto each file that is a direct child of this Directory
+* Webpack will compile minify to each file that is a direct child of this Directory
 * The files will be be given the extension .min  example: ``` hello.jsx --> hello.min.js ```
 * ( watch out for name conflicts like test.js & test.jsx which resolve to the same filetype .js when compiled)
 * Any file in ./dev/scripts/exclude will not be compiled by webpack as a entrypoint however can be used withine entrypoints
